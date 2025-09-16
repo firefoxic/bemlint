@@ -21,16 +21,15 @@
 		"./lib/"
 	],
 	"engines": {
-		"node": "^20.13 || >=22.11"
+		"node": ">=22.18"
 	},
-	"packageManager": "pnpm@9.12.3",
 	"dependencies": {
-		"node-html-parser": "^6.1.13",
+		"node-html-parser": "^7.0.1",
 		"plugin-error": "^2.0.1",
 		"through2": "^4.0.2"
 	},
 	"scripts": {
-		"prepare": "git config core.hooksPath .git-hooks || true",
+		"prepare": "git config core.hooksPath .githooks",
 		"lint": "eslint",
 		"test": "node --test",
 		"test:watch": "node --test --watch",
@@ -42,9 +41,9 @@
 		"postpublish": "git push --follow-tags"
 	},
 	"devDependencies": {
-		"@firefoxic/eslint-config": "^4.0.0",
+		"@firefoxic/eslint-config": "^5.0.0",
 		"@firefoxic/update-changelog": "^1.0.0",
-		"eslint": "^9.14.0"
+		"eslint": "^9.35.0"
 	},
 	"keywords": [
 		"gulpplugin",
