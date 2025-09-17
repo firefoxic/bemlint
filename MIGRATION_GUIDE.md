@@ -22,55 +22,58 @@ This guide will help you migrate from the `gulp-html-bemlinter` plugin to the
 
 - [ ] Remove gulp plugin from dependencies:
 
-	````shell
-	pnpm rm -D gulp-html-bemlinter
-	````
+```shell
+pnpm rm -D gulp-html-bemlinter
+```
 
 - [ ] Remove `gulp` or `vinyl-fs` dependency (if no longer needed):
 
-	````shell
-	pnpm rm -D gulp # or vinyl-fs
-	````
+```shell
+pnpm rm -D gulp # or vinyl-fs
+```
 
 - [ ] Install CLI tool:
 
-	```shell
-	pnpm add -D @firefoxic/bemlint
-	```
+```shell
+pnpm add -D @firefoxic/bemlint
+```
 
 - [ ] Delete gulp plugin usage from your codebase:
 
-	```diff
-	import { src } from "gulp"
-	-import bemlinter from "gulp-html-bemlinter"
+```diff
+ import { src } from "gulp"
+-import bemlinter from "gulp-html-bemlinter"
 
-	-export function lintBemMarkup() {
-	-	return src("dist/**/*.html")
-	-		.pipe(bemlinter())
-	-}
-	```
+-export function lintBemMarkup() {
+-    return src("dist/**/*.html")
+-      .pipe(bemlinter())
+-}
+```
 
 - [ ] Edit package.json script:
 
-	```diff
-	{
-		"scripts": {
-	-		"lint:bem": "gulp lintBemMarkup"
-	+		"lint:bem": "bemlint dist"
-		}
-	}
-	```
+```diff
+ {
+     "scripts": {
+-        "lint:bem": "gulp lintBemMarkup"
++        "lint:bem": "bemlint dist"
+     }
+ }
+```
 
 - [ ] Update CI/CD pipelines (unnecessary if using package.json scripts):
 
-	```diff
-	- name: Run BEM linting
-	run: |
-	    pnpm i
-	    pnpm build
-	-    pnpm exec gulp lintBemMarkup
-	+    pnpm exec @firefoxic/bemlint dist
-	```
+```diff
+job:
+  test:
+    steps:
+      - name: Run BEM linting
+        run: |
+          pnpm i
+          pnpm build
+-         pnpm exec gulp lintBemMarkup
++         pnpm exec @firefoxic/bemlint dist
+```
 
 - [ ] Test with existing HTML files.
 - [ ] Optionally update documentation and README.
