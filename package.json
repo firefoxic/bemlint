@@ -1,21 +1,24 @@
 {
-	"name": "gulp-html-bemlinter",
-	"description": "Gulp plugin for html linting using BEM methodology.",
+	"name": "@firefoxic/bemlint",
+	"description": "CLI tool for linting HTML using BEM methodology.",
 	"version": "5.0.1",
 	"license": "MIT",
 	"author": {
 		"name": "Sergey Artemov",
 		"email": "firefoxic.dev@gmail.com"
 	},
-	"homepage": "https://github.com/firefoxic/gulp-html-bemlinter#readme",
+	"homepage": "https://github.com/firefoxic/bemlint#readme",
 	"bugs": {
-		"url": "https://github.com/firefoxic/gulp-html-bemlinter/issues"
+		"url": "https://github.com/firefoxic/bemlint/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:firefoxic/gulp-html-bemlinter.git"
+		"url": "git@github.com:firefoxic/bemlint.git"
 	},
 	"type": "module",
+	"bin": {
+		"bemlint": "./bin/cli.js"
+	},
 	"exports": "./lib/index.js",
 	"files": [
 		"./lib/"
@@ -24,9 +27,7 @@
 		"node": ">=22.18"
 	},
 	"dependencies": {
-		"node-html-parser": "^7.0.1",
-		"plugin-error": "^2.0.1",
-		"through2": "^4.0.2"
+		"node-html-parser": "^7.0.1"
 	},
 	"scripts": {
 		"prepare": "git config core.hooksPath .githooks",
@@ -46,9 +47,10 @@
 		"eslint": "^9.35.0"
 	},
 	"keywords": [
-		"gulpplugin",
+		"cli",
 		"html",
 		"bem",
-		"linter"
+		"linter",
+		"bemlint"
 	]
 }

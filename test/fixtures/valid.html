@@ -1,20 +1,86 @@
 <!DOCTYPE html>
-<html class="page" lang="en">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Valid BEM Example</title>
 </head>
 
-<body class="page__body">
-	<h1>Title h1</h1>
-	<ul class="page__list list list--is-amazing">
-		<li class="list__item">Hello, world 1</li>
-		<li class="list__item">Hello, world 2</li>
-		<li class="list__item">Hello, world 3</li>
-		<li class="list__item">Hello, world 4</li>
-		<li class="list__item list__item--size_xl">Hi all!</li>
-	</ul>
+<body>
+	<header class="header">
+		<h1 class="header__title">Valid BEM Example</h1>
+		<nav class="nav">
+			<ul class="nav__list">
+				<li class="nav__item">
+					<a href="#" class="nav__link nav__link--is-active">Home</a>
+				</li>
+				<li class="nav__item">
+					<a href="#" class="nav__link">About</a>
+				</li>
+				<li class="nav__item">
+					<a href="#" class="nav__link">Contact</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="main">
+		<section class="hero hero--size_large">
+			<h2 class="hero__title">Welcome to Our Site</h2>
+			<p class="hero__text">This is a valid BEM example with no errors.</p>
+			<button class="button button--type_primary">
+				<span class="button__text">Click me</span>
+				<span class="icon icon--arrow"></span>
+			</button>
+		</section>
+
+		<section class="content">
+			<div class="card">
+				<h3 class="card__title">First Card</h3>
+				<p class="card__description">This card follows BEM methodology correctly.</p>
+				<div class="card__footer">
+					<button class="button button--type_secondary">
+						<span class="button__text">Read more</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="card card--highlighted">
+				<h3 class="card__title">Second Card</h3>
+				<p class="card__description">This card has a modifier to make it highlighted.</p>
+				<div class="card__footer">
+					<button class="button button--type_primary">
+						<span class="button__text">Learn more</span>
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<aside class="sidebar">
+			<div class="widget">
+				<h4 class="widget__title">Latest News</h4>
+				<ul class="widget__list">
+					<li class="widget__item">
+						<a href="#" class="widget__link">News item 1</a>
+					</li>
+					<li class="widget__item">
+						<a href="#" class="widget__link">News item 2</a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+	</main>
+
+	<footer class="footer">
+		<div class="footer__content">
+			<p class="footer__copyright">© 2024 Valid BEM Example</p>
+			<nav class="footer__nav">
+				<a href="#" class="footer__link">Privacy</a>
+				<a href="#" class="footer__link">Terms</a>
+			</nav>
+		</div>
+	</footer>
 </body>
 
 </html>

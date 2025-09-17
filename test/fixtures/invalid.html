@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Comprehensive BEM Test - All Error Types</title>
+</head>
+<body>
+	<!-- Valid BEM examples -->
+	<header class="header">
+		<h1 class="header__title">BEM Comprehensive Test</h1>
+		<nav class="nav nav--primary">
+			<ul class="nav__list">
+				<li class="nav__item">
+					<a href="#" class="nav__link nav__link--active">Home</a>
+				</li>
+				<li class="nav__item">
+					<a href="#" class="nav__link">About</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="main">
+		<!-- Error 1: Element outside its block -->
+		<section class="content">
+			<div class="card">
+				<h2 class="card__title">Valid Card</h2>
+				<p class="card__text">This card is valid.</p>
+				<!-- ERROR: menu__item without menu block -->
+				<div class="menu__item">This element has no parent block</div>
+			</div>
+		</section>
+
+		<!-- Error 2: Element of element (nested elements) -->
+		<section class="gallery">
+			<div class="gallery__container">
+				<!-- ERROR: gallery__item__image is element of element -->
+				<img src="#" alt="" class="gallery__item__image">
+				<!-- ERROR: gallery__item__caption__text is deeply nested -->
+				<p class="gallery__item__caption__text">Wrong nesting</p>
+			</div>
+		</section>
+
+		<!-- Error 3: Wrong element separators -->
+		<section class="products">
+			<!-- ERROR: Single underscore instead of double -->
+			<div class="products_item">Wrong separator</div>
+			<!-- ERROR: Mixed separators -->
+			<div class="products_header_title">Multiple wrong separators</div>
+		</section>
+
+		<!-- Error 4: Wrong modifier value separators -->
+		<section class="buttons">
+			<button class="button button--size__large">Button 1</button>
+			<!-- ERROR: Double dash in modifier value -->
+			<button class="button button--color--red">Button 2</button>
+			<!-- ERROR: Mixed wrong separators -->
+			<button class="button button--theme__dark--bold">Button 3</button>
+		</section>
+
+		<!-- Error 5: Modifiers without modifiable entity -->
+		<section class="forms">
+			<form class="form">
+				<!-- ERROR: input--required without input base class -->
+				<input type="text" class="input--required">
+				<!-- ERROR: form__field--highlighted without form__field -->
+				<div class="form__field--highlighted">Missing base class</div>
+			</form>
+		</section>
+
+		<!-- Error 6: Elements mixed with their blocks -->
+		<section class="sidebar">
+			<!-- ERROR: sidebar class mixed with sidebar__content -->
+			<div class="sidebar sidebar__content">
+				<h3 class="sidebar__title">Sidebar Title</h3>
+				<!-- ERROR: widget class mixed with widget__body -->
+				<div class="widget widget__body">
+					<p class="widget__text">Widget content</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Complex error combinations -->
+		<section class="complex">
+			<div class="complex__wrapper">
+				<!-- Multiple errors in one element -->
+				<div class="other_block__item__sub--modifier">
+					<!-- ERROR: Element outside block + element of element + wrong separator + modifier without base -->
+				</div>
+
+				<!-- More complex nesting errors -->
+				<div class="complex__item complex__item__nested--highlighted">
+					<!-- ERROR: Element of element + modifier without proper base -->
+				</div>
+			</div>
+		</section>
+
+		<!-- Valid BEM for contrast -->
+		<section class="testimonials testimonials--featured">
+			<div class="testimonials__container">
+				<article class="testimonial">
+					<blockquote class="testimonial__quote">
+						<p class="testimonial__text">This is a valid BEM structure.</p>
+					</blockquote>
+					<footer class="testimonial__footer">
+						<cite class="testimonial__author testimonial__author--verified">
+							<img src="#" alt="" class="testimonial__avatar">
+							<span class="testimonial__name">John Doe</span>
+						</cite>
+					</footer>
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer__content">
+			<p class="footer__copyright">© 2024 BEM Test Suite</p>
+			<!-- ERROR: One final error - wrong separator -->
+			<nav class="footer_navigation">
+				<a href="#" class="footer__link">Privacy</a>
+			</nav>
+		</div>
+	</footer>
+</body>
+</html>

@@ -7,6 +7,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+### Changed
+
+- **Complete transition from the Gulp plugin to a standalone CLI tool.**
+- The package name has now been changed from `gulp-html-bemlinter` to `@firefoxic/bemlint` (the old package is still available but is now deprecated).
+- The package now exports `bemlint` (asynchronous function).
+- Stream processing has been replaced with file system operations.
+- The package now provides a command line interface `bemlint`:
+	- works with glob patterns — `bemlint dist/**/*.html`,
+	- works with directories — `bemlint dist` (directories are pre-converted to glob patterns: `<dir>` → `<dir>/**/*.html`),
+	- supports individual files — `bemlint dist/about.html`,
+	- supports multiple inputs — `bemlint dist/index.html dist/blog/**/*.html`,
+	- ignores `**/node_modules/**/*`,
+	- exits with correct codes: `0` for success, `1` for detected BEM issues.
+- See [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for detailed instructions on migrating from `gulp-html-bemlinter` to `@firefoxic/bemlint`.
+
 ## [5.0.1] — 2024–11–08
 
 ### Fixed
@@ -19,7 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 - The minimum required `node.js` version has been increased to `20.13.0`, except for version `21`.
 
-## [4.0.0] — 2024–05–10
+## [4.0.0] — 2024–05–10
 
 ### Changed
 
@@ -37,91 +52,91 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 	- classes — green
 	- error texts — white/black (depending on color scheme)
 
-## [3.0.1] — 2023–12–04
+## [3.0.1] — 2023–12–04
 
 ### Fixed
 
 - The coloring terminal output.
 - The informative of the error output.
 
-## [3.0.0] — 2023–11–23
+## [3.0.0] — 2023–11–23
 
 ### Changed
 
 - Mixing an element to its own block is now considered an error.
 
-## [2.1.4] — 2023–05–12
+## [2.1.4] — 2023–05–12
 
 ### Fixed
 
-- The output in the terminal is no longer clogged with success messages.
+- The output in the terminal is no longer clogged with success messages.
 
-## [2.1.3] — 2023–03–20
+## [2.1.3] — 2023–03–20
 
 ### Fixed
 
-- File lists to ignore.
+- File lists to ignore.
 
-## [2.1.2] — 2022–09–22
+## [2.1.2] — 2022–09–22
 
 No significant changes
 
-## [2.1.1] — 2022–08–14
+## [2.1.1] — 2022–08–14
 
 ### Fixed
 
-- A bug that was present since v2.0.0 and dropped all BEM linting.
+- A bug that was present since v2.0.0 and dropped all BEM linting.
 
-## [2.1.0] — 2022–08–14
+## [2.1.0] — 2022–08–14
 
 ### Added
 
-- The result of linting an invalid bem-tree now has an error status.
+- The result of linting an invalid bem-tree now has an error status.
 
-## [2.0.3] — 2022–08–14
+## [2.0.3] — 2022–08–14
 
 ### Fixed
 
-- The versions in this changelog are now links to comparisons with previous versions.
+- The versions in this changelog are now links to comparisons with previous versions.
 
-## [2.0.2] — 2022–08–13
+## [2.0.2] — 2022–08–13
 
 ### Fixed
 
 - The result styling.
 
-## [2.0.1] — 2022–08–13
+## [2.0.1] — 2022–08–13
 
 ### Added
 
-- Badges for tests, license and vulnerability counter.
+- Badges for tests, license and vulnerability counter.
 
-## [2.0.0] — 2022–08–12
+## [2.0.0] — 2022–08–12
 
 ### Changed
 
 - The project has been converted to ESM.
 
-## [1.2.3] — 2022–07–27
+## [1.2.3] — 2022–07–27
 
 ### Fixed
 
 - The project name has been updated in all files.
 - The report styling.
 
-## [1.2.0] — 2022–07–26
+## [1.2.0] — 2022–07–26
 
 ### Fixed
 
 - `page` block elements on the `html` tag are no longer treated as “element outside of its block” errors.
 
-## [1.1.0] — 2022–07–26
+## [1.1.0] — 2022–07–26
 
 ### Fixed
 
 - The elements of the elements, such as `block__elem1__elem2`, are now also flagged as a bem naming error (thanks to [@SampetovaN](https://github.com/SampetovaN)).
 
-## [1.0.0] — 2022–07–26
+## [1.0.0] — 2022–07–26
 
 ### Added
 
