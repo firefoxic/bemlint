@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+## [6.0.0] — 2025–09–17
+
 ### Changed
 
 - **Complete transition from the Gulp plugin to a standalone CLI tool.**
@@ -142,7 +144,8 @@ No significant changes
 
 - Basic functionality via a fork of the [gulp-html-bem-validator](https://github.com/dDenysS/gulp-html-bem-validator/) project.
 
-[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v5.0.1...HEAD
+[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v5.0.1...v6.0.0
 [5.0.1]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v4.0.0...v5.0.0
 [4.0.0]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v3.0.1...v4.0.0
