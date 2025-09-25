@@ -30,21 +30,12 @@
 		"node-html-parser": "^7.0.1"
 	},
 	"scripts": {
-		"prepare": "git config core.hooksPath .githooks",
-		"lint": "eslint",
-		"test": "node --test",
-		"test:watch": "node --test --watch",
-		"test:coverage": "node --test --experimental-test-coverage",
-		"pretest": "pnpm lint",
-		"preversion": "pnpm test",
-		"version": "update-changelog",
-		"postversion": "pnpm publish --provenance --access public --no-git-checks",
-		"postpublish": "git push --follow-tags"
+		"help": "make help",
+		"eslint": "eslint"
 	},
 	"devDependencies": {
 		"@firefoxic/eslint-config": "^5.0.0",
-		"@firefoxic/update-changelog": "^1.0.0",
-		"eslint": "^9.35.0"
+		"eslint": "^9.36.0"
 	},
 	"keywords": [
 		"cli",
