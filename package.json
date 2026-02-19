@@ -27,7 +27,7 @@
 		"node": ">=22.18"
 	},
 	"dependencies": {
-		"node-html-parser": "^7.0.1"
+		"node-html-parser": "^7.0.2"
 	},
 	"scripts": {
 		"help": "make help",
