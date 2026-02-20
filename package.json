@@ -31,11 +31,11 @@
 	},
 	"scripts": {
 		"help": "make help",
-		"eslint": "eslint"
+		"oxlint": "oxlint"
 	},
 	"devDependencies": {
-		"@firefoxic/eslint-config": "^5.0.0",
-		"eslint": "^9.36.0"
+		"@firefoxic/oxlint-config": "^0.1.2",
+		"oxlint": "^1.49.0"
 	},
 	"keywords": [
 		"cli",

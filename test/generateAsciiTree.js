@@ -67,4 +67,3 @@ describe(`generateAsciiTree`, () => {
 └─ Node 2`)
 	})
 })
-

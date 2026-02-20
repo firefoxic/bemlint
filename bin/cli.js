@@ -34,6 +34,7 @@ for (let arg of argv.slice(2)) {
 	}
 
 	if (arg === `--version` || arg === `-v`) {
+		// oxlint-disable-next-line no-await-in-loop
 		let { default: { version } } = await import(`../package.json`, { "with": { type: `json` } })
 
 		info(version)
