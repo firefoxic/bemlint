@@ -3,7 +3,7 @@
 import { info } from "node:console"
 import { argv, exit } from "node:process"
 
-import { bemlint } from "../lib/index.js"
+import { bemlint } from "../lib/bemlint.js"
 
 const HELP_TEXT = `
     CLI tool for HTML linting using BEM methodology.
