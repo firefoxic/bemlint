@@ -1,22 +1,26 @@
 import { styleText } from "node:util"
 
-import type { HTMLElement } from "node-html-parser"
+import { getClassList } from "../getClassList/index.js"
+import { getId } from "../getId/index.js"
+import type { ParsedElement } from "../types.js"
 
 /**
  * Generates a tree label based on the given node.
  *
- * @param {HTMLElement} node - The node to generate the label tree from.
+ * @param {ParsedElement} node - The node to generate the label tree from.
  * @returns {string} The label tree generated from the node.
  */
-export function createLabel (node: HTMLElement): string {
+export function createLabel (node: ParsedElement): string {
 	let label = styleText(`cyanBright`, node.tagName)
 
-	if (node.id) {
-		label += styleText(`yellow`, `#${node.id.replace(` `, `#`)}`)
+	let id = getId(node)
+	if (id) {
+		label += styleText(`yellow`, `#${id.replace(` `, `#`)}`)
 	}
 
-	if (node.classList.length > 0) {
-		label += styleText(`greenBright`, `.${node.classList.value.join(`.`)}`)
+	let classList = getClassList(node)
+	if (classList.length > 0) {
+		label += styleText(`greenBright`, `.${classList.join(`.`)}`)
 	}
 
 	if (node.customDataSet?.errorDefs?.size) {

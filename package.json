@@ -30,7 +30,8 @@
 		"pnpm": ">=10.30"
 	},
 	"dependencies": {
-		"node-html-parser": "^7.0.2"
+		"parse5": "^8.0.0",
+		"parse5-htmlparser2-tree-adapter": "^8.0.0"
 	},
 	"scripts": {
 		"help": "make help"

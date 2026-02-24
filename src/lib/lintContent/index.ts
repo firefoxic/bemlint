@@ -1,7 +1,8 @@
-import htmlParser from "node-html-parser"
+import { parse } from "parse5"
+import { adapter } from "parse5-htmlparser2-tree-adapter"
 
 import { convertHtmlToAst } from "../convertHtmlToAst/index.js"
-import type { LintContentResult, Warnings } from "../types.js"
+import type { LintContentResult, ParsedElement, Warnings } from "../types.js"
 
 /**
  * Lint HTML content for BEM methodology compliance
@@ -11,7 +12,7 @@ import type { LintContentResult, Warnings } from "../types.js"
  */
 export function lintContent (content: string): LintContentResult {
 	let warnings: Warnings = { count: 0 }
-	let htmlTree = htmlParser.parse(content)
+	let htmlTree = parse(content, { treeAdapter: adapter }) as unknown as ParsedElement
 	let ast = convertHtmlToAst(htmlTree, warnings)
 
 	return {

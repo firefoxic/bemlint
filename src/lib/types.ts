@@ -1,5 +1,7 @@
-declare module "node-html-parser" {
-	interface HTMLElement {
+import type { Element } from "parse5"
+
+declare module "parse5" {
+	interface Element {
 		customDataSet: CustomDataSet,
 	}
 }
@@ -7,6 +9,16 @@ declare module "node-html-parser" {
 export type CustomDataSet = {
 	prefixes: Set<string>,
 	errorDefs?: Set<string>,
+}
+
+export type ParsedElement = Element & {
+	customDataSet: CustomDataSet,
+	name: string,
+	tagName: string,
+	attribs: Record<string, string>,
+	attrs: Array<{ name: string, value: string }>,
+	childNodes: ParsedElement[],
+	parentNode?: ParsedElement,
 }
 
 export type Warnings = {
