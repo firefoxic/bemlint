@@ -4,6 +4,7 @@
 *.sublime*
 *.log
 dist
+coverage
 node_modules
 npm-debug.*
 Thumbs.db

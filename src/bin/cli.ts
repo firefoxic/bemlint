@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-import { info } from "node:console"
-import { argv, exit } from "node:process"
+import process from "node:process"
 
 import { bemlint } from "../lib/bemlint/index.js"
 
@@ -27,18 +26,20 @@ const HELP_TEXT = `
 
 const patterns: string[] = []
 
-for (let arg of argv.slice(2)) {
+for (let arg of process.argv.slice(2)) {
 	if (arg === `--help` || arg === `-h`) {
-		info(HELP_TEXT)
-		exit(0)
+		// oxlint-disable-next-line no-console
+		console.info(HELP_TEXT)
+		process.exit(0)
 	}
 
 	if (arg === `--version` || arg === `-v`) {
 		// oxlint-disable-next-line no-await-in-loop
 		let { default: { version } } = await import(`../../package.json`, { "with": { type: `json` } })
 
-		info(version)
-		exit(0)
+		// oxlint-disable-next-line no-console
+		console.info(version)
+		process.exit(0)
 	}
 
 	patterns.push(arg)
