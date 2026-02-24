@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+## [6.0.1] — 2026–02–24
+
 ### Fixed
 
 - For convenient use of the Node.js API with TypeScript, the package now comes with type declarations.
@@ -148,7 +150,8 @@ No significant changes
 
 - Basic functionality via a fork of the [gulp-html-bem-validator](https://github.com/dDenysS/gulp-html-bem-validator/) project.
 
-[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.0...HEAD
+[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.1...HEAD
+[6.0.1]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v5.0.1...v6.0.0
 [5.0.1]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v4.0.0...v5.0.0
