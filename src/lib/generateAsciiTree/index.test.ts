@@ -1,30 +1,31 @@
-import { equal } from "node:assert/strict"
-import { describe, it } from "node:test"
+import { describe, expect, it } from "vitest"
 
-import { generateAsciiTree } from "../lib/generateAsciiTree.js"
+import type { AstNode } from "../types.js"
+
+import { generateAsciiTree } from "./index.js"
 
 describe(`generateAsciiTree`, () => {
 	it(`should return empty string for empty AST`, () => {
-		let ast = {}
+		let ast: AstNode = {} as AstNode
 		let options = {}
 		let result = generateAsciiTree(ast, options)
 
-		equal(result, ``)
+		expect(result).toBe(``)
 	})
 
 	it(`should return ASCII representation of single node AST`, () => {
-		let ast = {
+		let ast: AstNode = {
 			label: `Node 1`,
 			nodes: [],
 		}
 		let options = {}
 		let result = generateAsciiTree(ast, options)
 
-		equal(result, `Node 1`)
+		expect(result).toBe(`Node 1`)
 	})
 
 	it(`should return correct ASCII tree representation for complex AST`, () => {
-		let ast = {
+		let ast: AstNode = {
 			label: `Root`,
 			nodes: [
 				{
@@ -58,7 +59,7 @@ describe(`generateAsciiTree`, () => {
 		let options = {}
 		let result = generateAsciiTree(ast, options)
 
-		equal(result, `Root
+		expect(result).toBe(`Root
 ├─ Node 1
 │  ├─ Node 1.1
 │  └─ Node 1.2

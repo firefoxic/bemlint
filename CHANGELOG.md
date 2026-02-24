@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+### Fixed
+
+- For convenient use of the Node.js API with TypeScript, the package now comes with type declarations.
+
 ## [6.0.0] — 2025–09–17
 
 ### Changed

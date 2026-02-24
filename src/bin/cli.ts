@@ -3,7 +3,7 @@
 import { info } from "node:console"
 import { argv, exit } from "node:process"
 
-import { bemlint } from "../lib/bemlint.js"
+import { bemlint } from "../lib/bemlint/index.js"
 
 const HELP_TEXT = `
     CLI tool for HTML linting using BEM methodology.
@@ -25,7 +25,7 @@ const HELP_TEXT = `
         1  BEM issues found
 `
 
-let patterns = []
+const patterns: string[] = []
 
 for (let arg of argv.slice(2)) {
 	if (arg === `--help` || arg === `-h`) {
@@ -35,7 +35,7 @@ for (let arg of argv.slice(2)) {
 
 	if (arg === `--version` || arg === `-v`) {
 		// oxlint-disable-next-line no-await-in-loop
-		let { default: { version } } = await import(`../package.json`, { "with": { type: `json` } })
+		let { default: { version } } = await import(`../../package.json`, { "with": { type: `json` } })
 
 		info(version)
 		exit(0)

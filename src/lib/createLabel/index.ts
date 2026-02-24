@@ -1,12 +1,14 @@
 import { styleText } from "node:util"
 
+import type { HTMLElement } from "node-html-parser"
+
 /**
  * Generates a tree label based on the given node.
  *
- * @param {Object} node - The node to generate the label tree from.
+ * @param {HTMLElement} node - The node to generate the label tree from.
  * @returns {string} The label tree generated from the node.
  */
-export function createLabel (node) {
+export function createLabel (node: HTMLElement): string {
 	let label = styleText(`cyanBright`, node.tagName)
 
 	if (node.id) {

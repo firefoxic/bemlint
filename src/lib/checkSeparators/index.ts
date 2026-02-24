@@ -1,12 +1,15 @@
-import { setError } from "./setError.js"
+import type { HTMLElement } from "node-html-parser"
+
+import { setError } from "../setError/index.js"
+import type { Warnings } from "../types.js"
 
 /**
  * Checks separators in class names.
  *
  * @param {HTMLElement} node - The node to check.
- * @param {object} warnings - The warnings object.
+ * @param {Warnings} warnings - The warnings object.
  */
-export function checkSeparators (node, warnings) {
+export function checkSeparators (node: HTMLElement, warnings: Warnings): void {
 	if (node.classList.value.join().indexOf(`_`) < 0) return
 
 	let singleUnderscoreRegex = /^(?!.*--)(?=.*[^_]_[^_]).*$/

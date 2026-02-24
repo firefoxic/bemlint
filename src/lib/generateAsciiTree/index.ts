@@ -1,14 +1,19 @@
+import type { AsciiTreeOptions, AstNode } from "../types.js"
+
 /**
  * Generates an ASCII tree representation of the given abstract syntax tree (AST).
  *
- * @param {object} ast - The abstract syntax tree.
- * @param {object} options - The options for generating the ASCII tree.
+ * @param {AstNode} ast - The abstract syntax tree.
+ * @param {AsciiTreeOptions} options - The options for generating the ASCII tree.
  * @param {string} options.prefix - The prefix string to be added to each node in the tree.
  * @param {string} options.suffix - The suffix string to be added between nodes in the tree.
  * @param {string} options.postfix - The postfix string to be added to each node in the tree.
  * @returns {string} The ASCII tree representation of the AST.
  */
-export function generateAsciiTree (ast, { prefix = ``, suffix = ``, postfix = `` } = {}) {
+export function generateAsciiTree (
+	ast: AstNode,
+	{ prefix = ``, suffix = ``, postfix = `` }: AsciiTreeOptions = {},
+): string {
 	let { label = ``, nodes } = ast
 	let asciiTree = `${prefix}${postfix}${label}`
 

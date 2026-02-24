@@ -1,11 +1,13 @@
-import { SEPARATORS } from "./separators.js"
+import type { HTMLElement } from "node-html-parser"
+
+import { SEPARATORS } from "../separators/index.js"
 
 /**
  * Adds classes as prefixes to the given node, based on the class names in the parent node.
  *
- * @param {Object} node - The node to add prefixes to.
+ * @param {HTMLElement} node - The node to add prefixes to.
  */
-export function addClassesAsPrefixes (node) {
+export function addClassesAsPrefixes (node: HTMLElement): void {
 	node.customDataSet ??= { prefixes: new Set() }
 
 	if (node.parentNode?.customDataSet?.prefixes) {

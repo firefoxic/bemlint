@@ -10,7 +10,7 @@
 	"overrides": [
 		{
 			"files": [
-				"./test/**/*.{js,ts}"
+				"**/*.test.{js,ts}"
 			],
 			"rules": {
 				"max-lines": "off",

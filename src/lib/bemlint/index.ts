@@ -2,21 +2,20 @@ import { error } from "node:console"
 import { glob } from "node:fs/promises"
 import { exit } from "node:process"
 
-import { lintFile } from "./lintFile.js"
-import { reportFileResult } from "./reportFileResult.js"
-import { resolvePatterns } from "./resolvePatterns.js"
+import { lintFile } from "../lintFile/index.js"
+import { reportFileResult } from "../reportFileResult/index.js"
+import { resolvePatterns } from "../resolvePatterns/index.js"
 
 /**
  * Lint multiple HTML files for BEM methodology compliance
  *
- * @param {string[]|string} input - Input patterns (glob, file paths, or directories)
- *
+ * @param {string[] | string} input - Input patterns (glob, file paths, or directories)
  * @returns {Promise<void>} Promise resolving when all files have been linted
  *
- * @throws {Error} If no input patterns are specified
- * @throws {Error} If no HTML files are found matching the specified patterns
+ * @throws Error if no input patterns are specified
+ * @throws Error if no HTML files are found matching the specified patterns
  */
-export async function bemlint (input) {
+export async function bemlint (input: string[] | string): Promise<void> {
 	if (input.length === 0) {
 		error(`Error: No input patterns specified`)
 		error(`Run \`bemlint --help\` for usage information`)
@@ -33,14 +32,14 @@ export async function bemlint (input) {
 			exit(1)
 		}
 
-		let fileResults = await Promise.all(filePaths.map((filePath) => lintFile(filePath)))
+		let fileResults = await Promise.all(filePaths.map(async (filePath: string) => await lintFile(filePath)))
 
 		for (let result of fileResults) {
 			if (result) reportFileResult(result)
 		}
 	}
 	catch (errorObj) {
-		error(`Error processing files:`, errorObj.message)
+		error(`Error processing files:`, (errorObj as Error).message)
 		exit(1)
 	}
 }

@@ -1,8 +1,8 @@
-import { equal } from "node:assert/strict"
 import { readFileSync } from "node:fs"
-import { describe, it } from "node:test"
 
-import { lintContent } from "../lib/lintContent.js"
+import { describe, expect, it } from "vitest"
+
+import { lintContent } from "./index.js"
 
 describe(`bemlint CLI`, () => {
 	it(`should fail markup with an incorrect BEM tree`, () => {
@@ -11,15 +11,16 @@ describe(`bemlint CLI`, () => {
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 6)
+		expect(warningCount).toBe(6)
 	})
+
 	it(`should pass markup with a correct BEM tree`, () => {
 		let html = readFileSync(
 			new URL(`./fixtures/valid.html`, import.meta.url),
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 0)
+		expect(warningCount).toBe(0)
 	})
 })
 
@@ -30,8 +31,9 @@ describe(`BEM tree`, () => {
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 0)
+		expect(warningCount).toBe(0)
 	})
+
 	it(`should not contain elements outside their blocks`, () => {
 		let html = readFileSync(
 			new URL(
@@ -41,16 +43,18 @@ describe(`BEM tree`, () => {
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 1)
+		expect(warningCount).toBe(1)
 	})
+
 	it(`should not conatain modifiers without modifiable entity`, () => {
 		let html = readFileSync(
 			new URL(`./fixtures/error-in-modifiers.html`, import.meta.url),
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 2)
+		expect(warningCount).toBe(2)
 	})
+
 	it(`should not contain elements of elements`, () => {
 		let html = readFileSync(
 			new URL(
@@ -60,8 +64,9 @@ describe(`BEM tree`, () => {
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 1)
+		expect(warningCount).toBe(1)
 	})
+
 	it(`should not contain mixes of elements with their blocks`, () => {
 		let html = readFileSync(
 			new URL(
@@ -71,22 +76,24 @@ describe(`BEM tree`, () => {
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 1)
+		expect(warningCount).toBe(1)
 	})
+
 	it(`should not contain wrong separators`, () => {
 		let html = readFileSync(
 			new URL(`./fixtures/error-in-separators.html`, import.meta.url),
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 3)
+		expect(warningCount).toBe(3)
 	})
+
 	it(`should not contain any errors`, () => {
 		let html = readFileSync(
 			new URL(`./fixtures/error-complex.html`, import.meta.url),
 		)
 		let { warningCount } = lintContent(html.toString())
 
-		equal(warningCount, 6)
+		expect(warningCount).toBe(6)
 	})
 })

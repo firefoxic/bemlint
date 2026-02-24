@@ -3,6 +3,7 @@
 .idea
 *.sublime*
 *.log
+dist
 node_modules
 npm-debug.*
 Thumbs.db

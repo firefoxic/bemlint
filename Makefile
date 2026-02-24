@@ -1,3 +1,5 @@
+export PATH := ./node_modules/.bin:$(PATH)
+
 setup: ## 🛠️  Setup the project environment
 	$(call remove_wrong_installation)
 	$(call install_pnpm)
@@ -7,18 +9,23 @@ setup: ## 🛠️  Setup the project environment
 .PHONY: setup
 
 lint: ## 🧬 Lint code by oxlint
-	@node --run oxlint
+	@oxlint
 .PHONY: lint
 
 fix: ## 🩹 Fix code by oxlint
-	@node --run oxlint -- --fix
+	@oxlint --fix
 .PHONY: fix
 
 test: ## 🧪 Run tests
-	@node --test
+	@vitest run
 .PHONY: test
 
-release: lint test ## 🚀 Release a new version
+build: lint test ## 🏗️ Build the project
+	@rm -rf dist
+	@tsc && chmod +x dist/bin/cli.js
+.PHONY: build
+
+release: build ## 🚀 Release a new version
 	@pnpm dlx @firefoxic/release-it
 .PHONY: release
 

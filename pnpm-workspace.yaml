@@ -6,6 +6,9 @@ mergeGitBranchLockfilesBranchPattern:
   - main
   - release*
 
+allowBuilds:
+  esbuild: true
+
 shellEmulator: true
 
 verifyDepsBeforeRun: install

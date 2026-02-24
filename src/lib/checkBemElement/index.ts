@@ -1,13 +1,16 @@
-import { SEPARATORS } from "./separators.js"
-import { setError } from "./setError.js"
+import type { HTMLElement } from "node-html-parser"
+
+import { SEPARATORS } from "../separators/index.js"
+import { setError } from "../setError/index.js"
+import type { Warnings } from "../types.js"
 
 /**
  * Checks if the given node is a BEM element.
  *
  * @param {HTMLElement} node - The node to check.
- * @param {object} warnings - The warnings object.
+ * @param {Warnings} warnings - The warnings object.
  */
-export function checkBemElement (node, warnings) {
+export function checkBemElement (node: HTMLElement, warnings: Warnings): void {
 	if (!node.classList.value.join().includes(SEPARATORS.element)) return
 
 	for (let classItem of node.classList.value) {
