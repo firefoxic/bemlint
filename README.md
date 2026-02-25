@@ -151,7 +151,7 @@ Happy BEM linting! 🎉
 [changelog-url]: https://github.com/firefoxic/bemlint/blob/main/CHANGELOG.md
 [changelog-image]: https://img.shields.io/badge/CHANGELOG-md-limegreen
 
-[npm-url]: https://npmjs.com/package/@firefoxic/bemlint
+[npm-url]: https://www.npmjs.com/package/@firefoxic/bemlint
 [npm-image]: https://img.shields.io/npm/v/%40firefoxic%2Fbemlint?logo=npm&color=limegreen
 
 [test-url]: https://github.com/firefoxic/bemlint/actions
