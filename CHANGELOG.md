@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+## [6.0.2] — 2026–02–27
+
 ### Fixed
 
 - Calls to the `process.exit()` method in the public API are now replaced with error generation, which prevents unintended process termination in environments other than the CLI.
@@ -154,7 +156,8 @@ No significant changes
 
 - Basic functionality via a fork of the [gulp-html-bem-validator](https://github.com/dDenysS/gulp-html-bem-validator/) project.
 
-[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.1...HEAD
+[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.2...HEAD
+[6.0.2]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.1...v6.0.2
 [6.0.1]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v5.0.1...v6.0.0
 [5.0.1]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v5.0.0...v5.0.1
