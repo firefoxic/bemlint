@@ -2,7 +2,7 @@
 
 import process from "node:process"
 
-import { bemlint } from "../lib/bemlint/index.js"
+import { bemlint } from "../lib/bemlint.js"
 
 const HELP_TEXT = `
     CLI tool for HTML linting using BEM methodology.
@@ -45,4 +45,11 @@ for (let arg of process.argv.slice(2)) {
 	patterns.push(arg)
 }
 
-await bemlint(patterns)
+try {
+	await bemlint(patterns)
+}
+catch (errorObj) {
+	// oxlint-disable-next-line no-console
+	console.error(`Error: ${(errorObj as Error).message}\nRun \`bemlint --help\` for usage information`)
+	process.exit(1)
+}

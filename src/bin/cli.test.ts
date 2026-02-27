@@ -4,7 +4,7 @@ import { join } from "node:path"
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
-vi.mock(`../lib/bemlint/index.js`, () => ({ bemlint: vi.fn() }))
+vi.mock(`../lib/bemlint.js`, () => ({ bemlint: vi.fn() }))
 
 async function mktempDir (): Promise<string> {
 	return await mkdtemp(join(tmpdir(), `bemlint-test-`))
@@ -20,12 +20,12 @@ describe(`cli`, () => {
 		originalArgv = process.argv
 		originalExit = process.exit
 
-		let { bemlint } = await import(`../lib/bemlint/index.js`)
+		let { bemlint } = await import(`../lib/bemlint.js`)
 		bemlintMock = bemlint as ReturnType<typeof vi.fn>
 
 		infoMock = vi.fn()
 
-		vi.spyOn(console, `info`).mockImplementation(infoMock)
+		vi.spyOn(console, `info`).mockImplementation(infoMock as (...args: unknown[]) => void)
 		vi.spyOn(process, `exit`).mockImplementation(vi.fn() as never)
 		vi.spyOn(process.stdout, `write`).mockImplementation(vi.fn() as never)
 		vi.spyOn(process.stderr, `write`).mockImplementation(vi.fn() as never)
@@ -106,5 +106,22 @@ describe(`cli`, () => {
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
 		}
+	})
+
+	it(`should handle errors from bemlint`, async () => {
+		let errorMock = vi.fn()
+		vi.spyOn(console, `error`).mockImplementation(errorMock as (...args: unknown[]) => void)
+
+		bemlintMock.mockImplementationOnce(() => {
+			throw new Error(`Test error`)
+		})
+
+		process.argv = [`node`, `cli.js`, `test.html`]
+
+		await import(`./cli.js`)
+
+		expect(bemlintMock).toHaveBeenCalledWith([`test.html`])
+		expect(errorMock).toHaveBeenCalledWith(`Error: Test error\nRun \`bemlint --help\` for usage information`)
+		expect(process.exit).toHaveBeenCalledWith(1)
 	})
 })

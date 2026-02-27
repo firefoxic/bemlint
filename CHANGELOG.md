@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+### Fixed
+
+- Calls to the `process.exit()` method in the public API are now replaced with error generation, which prevents unintended process termination in environments other than the CLI.
+
 ## [6.0.1] — 2026–02–24
 
 ### Fixed
