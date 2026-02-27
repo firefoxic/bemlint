@@ -19,11 +19,14 @@
 	"bin": {
 		"bemlint": "./dist/bin/cli.js"
 	},
-	"exports": "./dist/lib/bemlint/index.js",
-	"types": "./dist/lib/bemlint/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/lib/bemlint.js",
+			"types": "./dist/lib/bemlint.d.ts"
+		}
+	},
 	"files": [
-		"./dist/",
-		"!./dist/**/*.map"
+		"./dist/"
 	],
 	"engines": {
 		"node": ">=22.18",
@@ -42,6 +45,7 @@
 		"@vitest/coverage-v8": "^4.0.18",
 		"@vitest/ui": "4.0.18",
 		"oxlint": "^1.50.0",
+		"tsup": "^8.5.1",
 		"typescript": "^5.9.3",
 		"vitest": "^4.0.18"
 	},
