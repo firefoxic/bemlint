@@ -20,6 +20,10 @@ test: ## 🧪 Run tests
 	@vitest run
 .PHONY: test
 
+test-ui: ## 🧪 Run tests with UI
+	@vitest --ui
+.PHONY: test-ui
+
 test-watch: ## 🧪 Run tests in watch mode
 	@vitest watch
 .PHONY: test-watch
@@ -27,10 +31,6 @@ test-watch: ## 🧪 Run tests in watch mode
 test-coverage: ## 🧪 Run tests with coverage report
 	@vitest run --coverage
 .PHONY: test-coverage
-
-test-ui: ## 🧪 Run tests with UI
-	@vitest --ui
-.PHONY: test-ui
 
 build: lint test ## 🏗️  Build the project
 	@tsup && rm dist/bin/cli.d.ts
