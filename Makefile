@@ -32,7 +32,7 @@ test-ui: ## 🧪 Run tests with UI
 	@vitest --ui
 .PHONY: test-ui
 
-build: lint test ## 🏗️ Build the project
+build: lint test ## 🏗️  Build the project
 	@tsup && rm dist/bin/cli.d.ts
 .PHONY: build
 
