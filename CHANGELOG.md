@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+## [6.0.3] — 2026–03–03
+
 ### Fixed
 
 - A valid element inside an existing block is now not marked as an element without its own block. In some cases, there could be false negatives.
@@ -160,7 +162,8 @@ No significant changes
 
 - Basic functionality via a fork of the [gulp-html-bem-validator](https://github.com/dDenysS/gulp-html-bem-validator/) project.
 
-[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.2...HEAD
+[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.3...HEAD
+[6.0.3]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.2...v6.0.3
 [6.0.2]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.1...v6.0.2
 [6.0.1]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v5.0.1...v6.0.0
