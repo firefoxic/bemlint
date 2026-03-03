@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+### Fixed
+
+- A valid element inside an existing block is now not marked as an element without its own block. In some cases, there could be false negatives.
+
 ## [6.0.2] — 2026–02–27
 
 ### Fixed

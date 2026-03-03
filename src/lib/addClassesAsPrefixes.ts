@@ -18,7 +18,7 @@ export function addClassesAsPrefixes (node: ParsedElement): void {
 		let isElement = className.includes(SEPARATORS.element)
 		let isModifier = className.includes(SEPARATORS.modifier)
 
-		if (isElement || isModifier) return
+		if (isElement || isModifier) continue
 
 		node.customDataSet.prefixes.add(className)
 	}
