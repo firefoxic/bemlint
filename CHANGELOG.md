@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+## [6.0.4] — 2026–03–18
+
 ### Fixed
 
 - The dependencies have now been updated to versions that include security fixes.
@@ -166,7 +168,8 @@ No significant changes
 
 - Basic functionality via a fork of the [gulp-html-bem-validator](https://github.com/dDenysS/gulp-html-bem-validator/) project.
 
-[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.3...HEAD
+[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.4...HEAD
+[6.0.4]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.3...v6.0.4
 [6.0.3]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.2...v6.0.3
 [6.0.2]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.1...v6.0.2
 [6.0.1]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.0...v6.0.1
