@@ -5,6 +5,10 @@
 		"moduleResolution": "NodeNext",
 		"lib": [
 			"ESNext",
+			"DOM",
+		],
+		"types": [
+			"node"
 		],
 		"outDir": "./dist",
 		"rootDir": "./src",
@@ -15,6 +19,7 @@
 		"declaration": true,
 		"noEmitOnError": true,
 		"resolveJsonModule": true,
+		"isolatedDeclarations": true,
 	},
 	"include": [
 		"src/**/*",

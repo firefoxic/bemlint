@@ -17,7 +17,7 @@ import type { AstNode, ParsedElement, Warnings } from "./types.js"
 export function formatTree (
 	htmlNodes: ParsedElement[],
 	astNodes: AstNode[],
-	prefixes: Set<string> = new Set(),
+	prefixes: Set<string> | undefined = new Set(),
 	warnings: Warnings,
 ): void {
 	for (let node of htmlNodes) {
