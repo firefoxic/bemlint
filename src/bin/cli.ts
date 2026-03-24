@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createRequire } from "node:module"
 import process from "node:process"
 
 import { bemlint } from "../lib/bemlint.js"
@@ -34,11 +35,8 @@ for (let arg of process.argv.slice(2)) {
 	}
 
 	if (arg === `--version` || arg === `-v`) {
-		// oxlint-disable-next-line no-await-in-loop
-		let { default: { version } } = await import(`../../package.json`, { "with": { type: `json` } })
-
 		// oxlint-disable-next-line no-console
-		console.info(version)
+		console.info(getVersion())
 		process.exit(0)
 	}
 
@@ -52,4 +50,14 @@ catch (errorObj) {
 	// oxlint-disable-next-line no-console
 	console.error(`Error: ${(errorObj as Error).message}\nRun \`bemlint --help\` for usage information`)
 	process.exit(1)
+}
+
+/**
+ * Gets the current bemlint version from package.json.
+ * @returns {string} The package version.
+ */
+function getVersion (): string {
+	let require = createRequire(import.meta.url)
+	let pkg = require(`../../package.json`) as { version: string }
+	return pkg.version
 }
