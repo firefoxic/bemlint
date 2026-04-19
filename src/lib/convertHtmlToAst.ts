@@ -19,7 +19,7 @@ export function convertHtmlToAst (htmlTree: ParsedElement, warnings: Warnings): 
 
 		ast.label = createLabel(node)
 		if (hasClass(node)) addClassesAsPrefixes(node)
-		formatTree(node.childNodes, ast.nodes, node.customDataSet?.prefixes, warnings)
+		formatTree(node.childNodes, ast.nodes, warnings, node.customDataSet?.prefixes)
 	}
 
 	return ast

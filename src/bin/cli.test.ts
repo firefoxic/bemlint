@@ -52,7 +52,7 @@ describe(`cli`, () => {
 
 		await import(`./cli.js`)
 
-		expect(infoMock).toHaveBeenCalledWith(expect.stringMatching(/\d+\.\d+\.\d+/))
+		expect(infoMock).toHaveBeenCalledWith(expect.stringMatching(/\d+\.\d+\.\d+/u))
 		expect(process.exit).toHaveBeenCalledWith(0)
 	})
 

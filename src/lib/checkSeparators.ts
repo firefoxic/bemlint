@@ -12,8 +12,8 @@ export function checkSeparators (node: ParsedElement, warnings: Warnings): void 
 	let classList = getClassList(node)
 	if (classList.join().indexOf(`_`) < 0) return
 
-	let singleUnderscoreRegex = /^(?!.*--)(?=.*[^_]_[^_]).*$/
-	let doubleModifierRegex = /--.*(__|--).*$/
+	let singleUnderscoreRegex = /^(?!.*--)(?=.*[^_]_[^_]).*$/u
+	let doubleModifierRegex = /--.*(__|--).*$/u
 
 	for (let classItem of classList) {
 		if (singleUnderscoreRegex.test(classItem)) {

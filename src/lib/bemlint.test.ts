@@ -4,11 +4,11 @@ import { join } from "node:path"
 
 import { describe, expect, it, vi } from "vitest"
 
+import { bemlint } from "./bemlint.js"
+
 vi.mock(`node:console`, () => ({
 	error: vi.fn(),
 }))
-
-import { bemlint } from "./bemlint.js"
 
 describe(`bemlint`, () => {
 	it(`should throw error for empty input`, async () => {

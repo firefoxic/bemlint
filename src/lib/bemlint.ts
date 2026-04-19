@@ -10,8 +10,8 @@ import { resolvePatterns } from "./resolvePatterns.js"
  * @param {string[] | string} input - Input patterns (glob, file paths, or directories)
  * @returns {Promise<void>} Promise resolving when all files have been linted
  *
- * @throws Error if no input patterns are specified
- * @throws Error if no HTML files are found matching the specified patterns
+ * @throws {Error} Error if no input patterns are specified
+ * @throws {Error} Error if no HTML files are found matching the specified patterns
  */
 export async function bemlint (input: string[] | string): Promise<void> {
 	if (input.length === 0) throw new Error(`No input patterns specified`)

@@ -9,5 +9,5 @@ import type { ParsedElement } from "./types.js"
 export function getClassList (node: ParsedElement): string[] {
 	let classValue = node.attribs?.class
 	if (!classValue) return []
-	return classValue.split(/\s+/).filter(Boolean)
+	return classValue.split(/\s+/u).filter(Boolean)
 }

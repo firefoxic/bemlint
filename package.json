@@ -29,25 +29,36 @@
 		"./dist/"
 	],
 	"engines": {
-		"node": ">=22.18",
-		"pnpm": ">=10.30"
+		"node": ">=22.18"
 	},
 	"dependencies": {
-		"parse5": "^8.0.0",
-		"parse5-htmlparser2-tree-adapter": "^8.0.0"
+		"parse5": "^8.0.1",
+		"parse5-htmlparser2-tree-adapter": "^8.0.1"
 	},
 	"scripts": {
 		"help": "make help"
 	},
+	"devEngines": {
+		"runtime": {
+			"name": "node",
+			"version": ">=26.4",
+			"onFail": "download"
+		},
+		"packageManager": {
+			"name": "pnpm",
+			"version": ">=11.9",
+			"onFail": "download"
+		}
+	},
 	"devDependencies": {
-		"@firefoxic/oxlint-config": "^0.3.1",
-		"@types/node": "^25.5.0",
-		"@vitest/coverage-v8": "^4.1.0",
-		"@vitest/ui": "4.1.0",
-		"oxlint": "^1.56.0",
-		"tsdown": "^0.21.9",
-		"typescript": "^6.0.3",
-		"vitest": "^4.1.0"
+		"@firefoxic/oxlint-config": "^0.4.0",
+		"@types/node": "^26.1.0",
+		"@vitest/coverage-v8": "^4.1.9",
+		"@vitest/ui": "4.1.9",
+		"oxlint": "^1.72.0",
+		"tsdown": "^0.22.3",
+		"typescript": "^7.0.1-rc",
+		"vitest": "^4.1.9"
 	},
 	"keywords": [
 		"cli",

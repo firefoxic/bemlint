@@ -12,7 +12,7 @@ export async function resolvePatterns (input: string[] | string): Promise<string
 	return await Promise.all(
 		inputs.map(async (inputItem) => {
 			let stats = await stat(inputItem).catch(() => null)
-			return stats?.isDirectory() ? `${inputItem.replace(/\/+$/, ``)}/**/*.html` : inputItem
+			return stats?.isDirectory() ? `${inputItem.replace(/\/+$/u, ``)}/**/*.html` : inputItem
 		}),
 	)
 }

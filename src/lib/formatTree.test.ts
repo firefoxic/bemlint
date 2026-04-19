@@ -9,7 +9,7 @@ describe(`formatTree`, () => {
 		let astNodes: AstNode[] = []
 		let warnings: Warnings = { count: 0 }
 
-		formatTree(htmlNodes, astNodes, new Set(), warnings)
+		formatTree(htmlNodes, astNodes, warnings, new Set())
 
 		expect(astNodes).toEqual([])
 		expect(warnings.count).toBe(0)
@@ -26,7 +26,7 @@ describe(`formatTree`, () => {
 		let astNodes: AstNode[] = []
 		let warnings: Warnings = { count: 0 }
 
-		formatTree(htmlNodes, astNodes, new Set(), warnings)
+		formatTree(htmlNodes, astNodes, warnings, new Set())
 
 		expect(astNodes.length).toBe(1)
 		expect(astNodes[0].label).toContain(`div`)
@@ -50,7 +50,7 @@ describe(`formatTree`, () => {
 		let astNodes: AstNode[] = []
 		let warnings: Warnings = { count: 0 }
 
-		formatTree(htmlNodes, astNodes, new Set(), warnings)
+		formatTree(htmlNodes, astNodes, warnings, new Set())
 
 		expect(astNodes.length).toBe(1)
 		expect(astNodes[0].label).toContain(`div`)
@@ -67,7 +67,7 @@ describe(`formatTree`, () => {
 		let astNodes: AstNode[] = []
 		let warnings: Warnings = { count: 0 }
 
-		formatTree(htmlNodes, astNodes, new Set(), warnings)
+		formatTree(htmlNodes, astNodes, warnings, new Set())
 
 		expect(astNodes.length).toBe(2)
 		expect(astNodes[0].label).toContain(`div`)
@@ -86,7 +86,7 @@ describe(`formatTree`, () => {
 		let astNodes: AstNode[] = []
 		let warnings: Warnings = { count: 0 }
 
-		formatTree(htmlNodes, astNodes, new Set(), warnings)
+		formatTree(htmlNodes, astNodes, warnings, new Set())
 
 		expect(warnings.count).toBe(1)
 		expect(astNodes[0].label).toContain(`Element outside its block!`)
@@ -111,7 +111,7 @@ describe(`formatTree`, () => {
 		let astNodes: AstNode[] = []
 		let warnings: Warnings = { count: 0 }
 
-		formatTree(htmlNodes, astNodes, new Set(), warnings)
+		formatTree(htmlNodes, astNodes, warnings, new Set())
 
 		expect(warnings.count).toBe(0)
 	})
@@ -145,7 +145,7 @@ describe(`formatTree`, () => {
 		let astNodes: AstNode[] = []
 		let warnings: Warnings = { count: 0 }
 
-		formatTree(htmlNodes, astNodes, new Set(), warnings)
+		formatTree(htmlNodes, astNodes, warnings, new Set())
 
 		expect(astNodes.length).toBe(1)
 		expect(astNodes[0].nodes.length).toBe(1)
@@ -162,7 +162,7 @@ describe(`formatTree`, () => {
 		let astNodes: AstNode[] = []
 		let warnings: Warnings = { count: 0 }
 
-		formatTree(htmlNodes, astNodes, new Set(), warnings)
+		formatTree(htmlNodes, astNodes, warnings, new Set())
 
 		expect(astNodes.length).toBe(3)
 	})

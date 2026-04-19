@@ -17,8 +17,8 @@ import type { AstNode, ParsedElement, Warnings } from "./types.js"
 export function formatTree (
 	htmlNodes: ParsedElement[],
 	astNodes: AstNode[],
-	prefixes: Set<string> | undefined = new Set(),
 	warnings: Warnings,
+	prefixes: Set<string> | undefined = new Set(),
 ): void {
 	for (let node of htmlNodes) {
 		if (!node.tagName) continue
@@ -40,7 +40,7 @@ export function formatTree (
 		astNodes.push(ast)
 
 		if (node.childNodes.length > 0) {
-			formatTree(node.childNodes, ast.nodes, node.customDataSet.prefixes, warnings)
+			formatTree(node.childNodes, ast.nodes, warnings, node.customDataSet.prefixes)
 		}
 	}
 }
