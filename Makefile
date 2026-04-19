@@ -37,7 +37,7 @@ test-coverage: ## 🧪 Run tests with coverage report
 .PHONY: test-coverage
 
 build: lint test ## 🏗️  Build the project
-	@tsup && rm dist/bin/cli.d.ts
+	@tsdown && rm dist/bin/cli.d.ts
 .PHONY: build
 
 release: build ## 🚀 Release a new version
