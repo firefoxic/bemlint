@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+### Fixed
+
+- The protocol in the repository's metadata URL now meets current requirements.
+
 ## [6.0.4] — 2026–03–18
 
 ### Fixed
