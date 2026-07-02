@@ -1,7 +1,7 @@
 {
 	"name": "@firefoxic/bemlint",
 	"description": "CLI tool for linting HTML using BEM methodology.",
-	"version": "6.0.4",
+	"version": "6.0.5",
 	"license": "MIT",
 	"author": {
 		"name": "Sergey Artemov",
