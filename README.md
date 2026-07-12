@@ -2,7 +2,6 @@
 
 [![License: MIT][license-image]][license-url]
 [![Changelog][changelog-image]][changelog-url]
-[![NPM version][npm-image]][npm-url]
 [![Test Status][test-image]][test-url]
 
 This CLI tool validates your HTML markup against [BEM methodology](https://en.bem.info/methodology).
@@ -150,9 +149,6 @@ Happy BEM linting! 🎉
 
 [changelog-url]: https://github.com/firefoxic/bemlint/blob/main/CHANGELOG.md
 [changelog-image]: https://img.shields.io/badge/CHANGELOG-md-limegreen
-
-[npm-url]: https://www.npmjs.com/package/@firefoxic/bemlint
-[npm-image]: https://img.shields.io/npm/v/%40firefoxic%2Fbemlint?logo=npm&color=limegreen
 
 [test-url]: https://github.com/firefoxic/bemlint/actions
 [test-image]: https://github.com/firefoxic/bemlint/actions/workflows/test.yaml/badge.svg?branch=main
