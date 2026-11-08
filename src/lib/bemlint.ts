@@ -2,12 +2,11 @@ import { glob } from "node:fs/promises"
 
 import { BemlintError } from "./bemlintError.ts"
 import { lintFile } from "./lintFile.ts"
+import { processInBatches } from "./processInBatches.ts"
 import { resolvePatterns } from "./resolvePatterns.ts"
 import type { BemlintResult, FileLintResult } from "./types.ts"
 
-export type { BemlintErrorCode } from "./bemlintError.ts"
-export { BemlintError } from "./bemlintError.ts"
-export type { BemlintResult } from "./types.ts"
+const MAX_CONCURRENT_FILES = 8
 
 /**
  * Lint multiple HTML files for BEM methodology compliance
@@ -21,12 +20,24 @@ export async function bemlint (input: string[] | string): Promise<BemlintResult>
 	if (input.length === 0) throw new BemlintError(`no-input-patterns`, `No input patterns specified`)
 
 	let patterns = await resolvePatterns(input)
-	let filePaths = await Array.fromAsync(glob(patterns, { exclude: [`**/node_modules/**/*`] }))
+	let results: FileLintResult[] = []
 
-	if (filePaths.length === 0) throw new BemlintError(`no-html-files`, `No HTML files found matching the specified patterns`)
+	async function processBatch (filePaths: string[]): Promise<void> {
+		let fileResults = await Promise.all(filePaths.map((filePath) => lintFile(filePath)))
+		for (let fileResult of fileResults) if (fileResult) results.push(fileResult)
+	}
 
-	let fileResults = await Promise.all(filePaths.map(async (filePath: string) => await lintFile(filePath)))
-	let results = fileResults.filter((result): result is FileLintResult => result !== null)
+	let checkedFileCount = await processInBatches(
+		glob(patterns, { exclude: [`**/node_modules/**/*`] }),
+		MAX_CONCURRENT_FILES,
+		processBatch,
+	)
 
-	return { checkedFileCount: filePaths.length, results }
+	if (checkedFileCount === 0) throw new BemlintError(`no-html-files`, `No HTML files found matching the specified patterns`)
+
+	return { checkedFileCount, results }
 }
+
+export type { BemlintErrorCode } from "./bemlintError.ts"
+export { BemlintError } from "./bemlintError.ts"
+export type { BemlintResult } from "./types.ts"

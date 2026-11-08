@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 ### Fixed
 
 - Invalid inputs and file read failures now exit with code 2, separately from detected BEM violations.
+- HTML files are now linted in bounded batches to reduce peak memory use.
 
 ## [6.0.5] — 2026–07–02
 
