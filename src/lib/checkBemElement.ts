@@ -15,7 +15,9 @@ export function checkBemElement (node: ParsedElement, warnings: Warnings): void 
 	for (let classItem of classList) {
 		let result = parseBemClassName(classItem)
 		if (`error` in result) {
-			if (result.error === `nested-element`) setError(warnings, node.customDataSet, `Element of element!`)
+			if (result.error === `nested-element`) {
+				setError(warnings, node, `Element of element!`, `bem/nested-element`, classItem)
+			}
 			continue
 		}
 
@@ -23,10 +25,10 @@ export function checkBemElement (node: ParsedElement, warnings: Warnings): void 
 			let prefix = result.parts.block
 
 			if (!node.customDataSet.prefixes.has(prefix)) {
-				setError(warnings, node.customDataSet, `Element outside its block!`)
+				setError(warnings, node, `Element outside its block!`, `bem/element-outside-block`, classItem)
 			}
 			else if (classList.includes(prefix)) {
-				setError(warnings, node.customDataSet, `Element mixed with its block!`)
+				setError(warnings, node, `Element mixed with its block!`, `bem/element-mixed-with-block`, classItem)
 			}
 		}
 	}

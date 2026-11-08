@@ -21,7 +21,7 @@ export function checkBemModifier (node: ParsedElement, warnings: Warnings): void
 			: result.parts.block
 
 		if (!classList.includes(modifierPrefix)) {
-			setError(warnings, node.customDataSet, `Modifier without modifiable!`)
+			setError(warnings, node, `Modifier without modifiable!`, `bem/modifier-without-base`, classItem)
 		}
 	}
 }

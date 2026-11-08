@@ -25,6 +25,19 @@ describe(`bemlint CLI`, () => {
 })
 
 describe(`BEM tree`, () => {
+	it(`should include a class-level diagnostic and source location`, () => {
+		let { diagnostics } = lintContent(`<!doctype html>\n<div class="block__element"></div>`)
+
+		expect(diagnostics).toEqual([
+			{
+				ruleId: `bem/element-outside-block`,
+				message: `Element outside its block!`,
+				className: `block__element`,
+				location: { line: 2, column: 1 },
+			},
+		])
+	})
+
 	it(`should be correct`, () => {
 		let html = readFileSync(
 			new URL(`../../fixtures/valid.html`, import.meta.url),

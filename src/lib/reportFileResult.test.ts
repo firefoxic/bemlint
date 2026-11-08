@@ -18,6 +18,7 @@ describe(`reportFileResult`, () => {
 			let result: FileLintSuccess = {
 				filePath: `/test/file.html`,
 				warningCount: 3,
+				diagnostics: [],
 				ast: { label: `div`, nodes: [] },
 			}
 
@@ -67,6 +68,7 @@ describe(`reportFileResult`, () => {
 			let result: FileLintSuccess = {
 				filePath: `/path/to/test/file.html`,
 				warningCount: 2,
+				diagnostics: [],
 				ast: { label: `div`, nodes: [] },
 			}
 

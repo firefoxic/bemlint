@@ -12,11 +12,11 @@ import type { LintFileResult } from "./types.ts"
 export async function lintFile (filePath: string): Promise<LintFileResult> {
 	try {
 		let content = await readFile(filePath, `utf8`)
-		let { warningCount, ast } = lintContent(content)
+		let { warningCount, diagnostics, ast } = lintContent(content)
 
 		if (!warningCount) return null
 
-		return { filePath, warningCount, ast }
+		return { filePath, warningCount, diagnostics, ast }
 	}
 	catch (errorObj) {
 		return { filePath, errorObj: errorObj as Error }

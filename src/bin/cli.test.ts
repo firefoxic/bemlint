@@ -122,6 +122,7 @@ describe(`cli`, () => {
 				{
 					filePath: `invalid.html`,
 					warningCount: 1,
+					diagnostics: [],
 					ast: { label: `div`, nodes: [] },
 				},
 			],
@@ -132,6 +133,124 @@ describe(`cli`, () => {
 
 		expect(process.exitCode).toBe(1)
 		expect(process.env.FORCE_COLOR).toBe(`2`)
+	})
+
+	it(`should emit structured JSON results without the text tree`, async () => {
+		bemlintMock.mockResolvedValueOnce({
+			checkedFileCount: 1,
+			results: [
+				{
+					filePath: `invalid.html`,
+					warningCount: 1,
+					diagnostics: [
+						{
+							ruleId: `bem/element-outside-block`,
+							message: `Element outside its block!`,
+							className: `block__element`,
+							location: { line: 2, column: 1 },
+						},
+					],
+					ast: { label: `div ❌ Element outside its block!`, nodes: [] },
+				},
+			],
+		})
+		process.argv = [`node`, `cli.js`, `--format`, `json`, `invalid.html`]
+
+		await import(`./cli.js`)
+
+		expect(infoMock).toHaveBeenCalledWith(JSON.stringify({
+			checkedFileCount: 1,
+			results: [
+				{
+					filePath: `invalid.html`,
+					warningCount: 1,
+					diagnostics: [
+						{
+							ruleId: `bem/element-outside-block`,
+							message: `Element outside its block!`,
+							className: `block__element`,
+							location: { line: 2, column: 1 },
+						},
+					],
+				},
+			],
+		}))
+		expect(process.exitCode).toBe(1)
+	})
+
+	it(`should emit an empty JSON result for a clean scan`, async () => {
+		bemlintMock.mockResolvedValueOnce({ checkedFileCount: 2, results: [] })
+		process.argv = [`node`, `cli.js`, `-f`, `json`, `valid.html`]
+
+		await import(`./cli.js`)
+
+		expect(infoMock).toHaveBeenCalledWith(JSON.stringify({ checkedFileCount: 2, results: [] }))
+		expect(process.exitCode).toBe(originalExitCode)
+	})
+
+	it(`should include file errors in JSON results`, async () => {
+		bemlintMock.mockResolvedValueOnce({
+			checkedFileCount: 1,
+			results: [
+				{
+					filePath: `unreadable.html`,
+					errorObj: new Error(`Permission denied`),
+				},
+			],
+		})
+		process.argv = [`node`, `cli.js`, `--format`, `json`, `unreadable.html`]
+
+		await import(`./cli.js`)
+
+		expect(infoMock).toHaveBeenCalledWith(JSON.stringify({
+			checkedFileCount: 1,
+			results: [
+				{
+					filePath: `unreadable.html`,
+					error: { name: `Error`, message: `Permission denied` },
+				},
+			],
+		}))
+		expect(process.exitCode).toBe(1)
+	})
+
+	it(`should emit invocation errors in JSON format`, async () => {
+		bemlintMock.mockRejectedValueOnce(new Error(`No input patterns specified`))
+		process.argv = [`node`, `cli.js`, `--format`, `json`]
+
+		await import(`./cli.js`)
+
+		expect(infoMock).toHaveBeenCalledWith(JSON.stringify({
+			error: { name: `Error`, message: `No input patterns specified` },
+		}))
+		expect(process.exit).toHaveBeenCalledWith(1)
+	})
+
+	it(`should serialize non-Error failures in JSON format`, async () => {
+		bemlintMock.mockRejectedValueOnce(`Unexpected failure`)
+		process.argv = [`node`, `cli.js`, `--format`, `json`, `input.html`]
+
+		await import(`./cli.js`)
+
+		expect(infoMock).toHaveBeenCalledWith(JSON.stringify({
+			error: { name: `Error`, message: `Unexpected failure` },
+		}))
+		expect(process.exit).toHaveBeenCalledWith(1)
+	})
+
+	it.each([
+		[[`--format`, `xml`], `Unknown output format "xml". Available formats: text, json`],
+		[[`--format`], `Unknown output format "". Available formats: text, json`],
+	])(`should reject unsupported output format arguments`, async (formatArgs, message) => {
+		let errorMock = vi.fn()
+		vi.spyOn(console, `error`).mockImplementation(errorMock as (...args: unknown[]) => void)
+		process.argv = [`node`, `cli.js`, ...formatArgs]
+
+		await import(`./cli.js`)
+
+		expect(bemlintMock).not.toHaveBeenCalled()
+		expect(errorMock).toHaveBeenCalledWith(`Error: ${message}\nRun \`bemlint --help\` for usage information`)
+		expect(process.exit).toHaveBeenCalledWith(1)
 	})
 
 	it(`should handle errors from bemlint`, async () => {

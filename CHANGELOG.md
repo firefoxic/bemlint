@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 - The Node.js API now returns a summary and per-file results without printing reports or changing process state.
 - BEM class names with empty segments or repeated separators are now reported as malformed.
+- BEM violations are now available as class-level diagnostics with rule IDs and source locations in the Node.js API and JSON CLI output.
 
 ## [6.0.5] — 2026–07–02
 

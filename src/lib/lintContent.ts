@@ -2,7 +2,7 @@ import { parse } from "parse5"
 import { adapter } from "parse5-htmlparser2-tree-adapter"
 
 import { convertHtmlToAst } from "./convertHtmlToAst.ts"
-import type { LintContentResult, ParsedElement, Warnings } from "./types.ts"
+import type { LintContentResult, LintDiagnostic, ParsedElement, Warnings } from "./types.ts"
 
 /**
  * Lint HTML content for BEM methodology compliance
@@ -11,12 +11,14 @@ import type { LintContentResult, ParsedElement, Warnings } from "./types.ts"
  * @returns {LintContentResult} The result of the BEM linting.
  */
 export function lintContent (content: string): LintContentResult {
-	let warnings: Warnings = { count: 0 }
-	let htmlTree = parse(content, { treeAdapter: adapter }) as unknown as ParsedElement
+	let diagnostics: LintDiagnostic[] = []
+	let warnings: Warnings = { count: 0, diagnostics }
+	let htmlTree = parse(content, { treeAdapter: adapter, sourceCodeLocationInfo: true }) as unknown as ParsedElement
 	let ast = convertHtmlToAst(htmlTree, warnings)
 
 	return {
 		warningCount: warnings.count,
+		diagnostics,
 		ast,
 	}
 }

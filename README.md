@@ -77,9 +77,17 @@ For brevity, the examples below will use the global installation variant. Exp
 	bemlint dist/about.html dest/blog
 	```
 
+- Emit machine-readable JSON
+
+	```shell
+	bemlint --format json "src/**/*.html"
+	```
+
+Text output is the default. JSON output always includes `checkedFileCount` and a `results` array containing only files with issues or file errors; a clean scan emits an empty array.
+
 ### Node.js API
 
-The `bemlint()` function returns the number of checked files and results for files with BEM issues or file errors. It does not print output or change the process exit code.
+The `bemlint()` function returns the number of checked files and results for files with BEM issues or file errors. Each issue includes a stable rule ID, the message, the class name, and the element's starting line and column when available. It does not print output or change the process exit code.
 
 ```js
 import { bemlint } from "@firefoxic/bemlint"
@@ -99,6 +107,8 @@ for (let fileResult of result.results) {
 ```
 
 The function rejects when no input patterns are supplied or when they match no HTML files.
+
+The JSON CLI output uses the same diagnostic fields. File errors include an `error` object with `name` and `message`; invocation errors are emitted as a top-level `error` object.
 
 ## Understanding results
 

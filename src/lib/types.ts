@@ -15,6 +15,10 @@ export type ParsedElement = Element & {
 	customDataSet: CustomDataSet,
 	name: string,
 	tagName: string,
+	sourceCodeLocation?: {
+		startLine: number,
+		startCol: number,
+	} | null,
 	attribs: Record<string, string>,
 	attrs: Array<{ name: string, value: string }>,
 	childNodes: ParsedElement[],
@@ -23,16 +27,19 @@ export type ParsedElement = Element & {
 
 export type Warnings = {
 	count: number,
+	diagnostics?: LintDiagnostic[],
 }
 
 export type LintContentResult = {
 	warningCount: number,
+	diagnostics: LintDiagnostic[],
 	ast: AstNode,
 }
 
 export type FileLintSuccess = {
 	filePath: string,
 	warningCount: number,
+	diagnostics: LintDiagnostic[],
 	ast: LintContentResult[`ast`],
 }
 
@@ -72,6 +79,16 @@ export type BemClassParts = {
 export type BemClassNameError = `empty-name` | `element-separator` | `modifier-separator` | `nested-element`
 
 export type BemClassNameResult = { parts: BemClassParts } | { error: BemClassNameError }
+
+export type LintDiagnostic = {
+	ruleId: string,
+	message: string,
+	className: string,
+	location?: {
+		line: number,
+		column: number,
+	},
+}
 
 export type AstNode = {
 	label?: string,

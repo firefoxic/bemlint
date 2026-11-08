@@ -16,13 +16,13 @@ export function checkSeparators (node: ParsedElement, warnings: Warnings): void 
 		let result = parseBemClassName(classItem)
 
 		if (`error` in result && result.error === `element-separator`) {
-			setError(warnings, node.customDataSet, `Wrong element separator!`)
+			setError(warnings, node, `Wrong element separator!`, `bem/element-separator`, classItem)
 		}
 		else if (`error` in result && result.error === `modifier-separator`) {
-			setError(warnings, node.customDataSet, `Wrong modifier value separator!`)
+			setError(warnings, node, `Wrong modifier value separator!`, `bem/modifier-separator`, classItem)
 		}
 		else if (`error` in result && result.error === `empty-name`) {
-			setError(warnings, node.customDataSet, `Empty BEM name segment!`)
+			setError(warnings, node, `Empty BEM name segment!`, `bem/empty-name-segment`, classItem)
 		}
 	}
 }
