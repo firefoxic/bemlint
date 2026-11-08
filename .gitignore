@@ -1,10 +1,5 @@
-.DS_Store
-.vscode
-.idea
-*.sublime*
-*.log
-dist
+*.log*
+.agents/local/
 coverage
+dist
 node_modules
-npm-debug.*
-Thumbs.db
