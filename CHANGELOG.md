@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+## [7.0.0] — 2026–11–08
+
 ### Changed
 
 - The Node.js API now returns a summary and per-file results without printing reports or changing process state.
@@ -185,7 +187,8 @@ No significant changes
 
 - Basic functionality via a fork of the [gulp-html-bem-validator](https://github.com/dDenysS/gulp-html-bem-validator/) project.
 
-[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.5...HEAD
+[Unreleased]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v7.0.0...HEAD
+[7.0.0]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.5...v7.0.0
 [6.0.5]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.4...v6.0.5
 [6.0.4]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.3...v6.0.4
 [6.0.3]: https://github.com/firefoxic/gulp-html-bemlinter/compare/v6.0.2...v6.0.3
