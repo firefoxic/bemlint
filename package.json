@@ -36,7 +36,8 @@
 		"parse5-htmlparser2-tree-adapter": "^8.0.1"
 	},
 	"scripts": {
-		"help": "make help"
+		"help": "make help",
+		"prepack": "git config --local core.hooksPath .githooks || true"
 	},
 	"devEngines": {
 		"runtime": {
