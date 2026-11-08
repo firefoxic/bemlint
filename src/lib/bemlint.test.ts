@@ -1,3 +1,4 @@
+import { error } from "node:console"
 import { mkdtemp, rm, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
@@ -31,7 +32,10 @@ describe(`bemlint`, () => {
 </html>
 			`)
 
-			await expect(bemlint([validFile])).resolves.toBeUndefined()
+			await expect(bemlint([validFile])).resolves.toEqual({
+				checkedFileCount: 1,
+				results: [],
+			})
 		}
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
@@ -43,6 +47,7 @@ describe(`bemlint`, () => {
 
 		try {
 			let invalidFile = path.join(tempDir, `invalid.html`)
+			let validFile = path.join(tempDir, `valid.html`)
 			await writeFile(invalidFile, `
 <!DOCTYPE html>
 <html>
@@ -51,8 +56,32 @@ describe(`bemlint`, () => {
 </body>
 </html>
 			`)
+			await writeFile(validFile, `<div class="block">Content</div>`)
 
-			await expect(bemlint([invalidFile])).resolves.toBeUndefined()
+			let originalExitCode = process.exitCode
+			let originalForceColor = process.env.FORCE_COLOR
+
+			try {
+				vi.mocked(error).mockClear()
+				let result = await bemlint([invalidFile])
+
+				expect(result.checkedFileCount).toBe(1)
+				expect(result.results).toHaveLength(1)
+				expect(result.results[0]).toMatchObject({
+					filePath: invalidFile,
+					warningCount: 1,
+				})
+				let cleanResult = await bemlint([validFile])
+
+				expect(cleanResult).toEqual({ checkedFileCount: 1, results: [] })
+				expect(process.exitCode).toBe(originalExitCode)
+				expect(process.env.FORCE_COLOR).toBe(originalForceColor)
+				expect(error).not.toHaveBeenCalled()
+			}
+			finally {
+				process.exitCode = originalExitCode
+				process.env.FORCE_COLOR = originalForceColor
+			}
 		}
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
@@ -67,9 +96,12 @@ describe(`bemlint`, () => {
 			let file2 = path.join(tempDir, `file2.html`)
 
 			await writeFile(file1, `<div class="block">File 1</div>`)
-			await writeFile(file2, `<div class="block__element">File 2</div>`)
+			await writeFile(file2, `<div class="block"><span class="block__element">File 2</span></div>`)
 
-			await expect(bemlint([file1, file2])).resolves.toBeUndefined()
+			let result = await bemlint([file1, file2])
+
+			expect(result.checkedFileCount).toBe(2)
+			expect(result.results).toEqual([])
 		}
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
@@ -96,7 +128,10 @@ describe(`bemlint`, () => {
 			let htmlFile = path.join(tempDir, `test.html`)
 			await writeFile(htmlFile, `<div class="block">Content</div>`)
 
-			await expect(bemlint(tempDir)).resolves.toBeUndefined()
+			await expect(bemlint(tempDir)).resolves.toMatchObject({
+				checkedFileCount: 1,
+				results: [],
+			})
 		}
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
@@ -110,7 +145,10 @@ describe(`bemlint`, () => {
 			let htmlFile = path.join(tempDir, `test.html`)
 			await writeFile(htmlFile, `<div class="block">Content</div>`)
 
-			await expect(bemlint([`${tempDir}/*.html`])).resolves.toBeUndefined()
+			await expect(bemlint([`${tempDir}/*.html`])).resolves.toMatchObject({
+				checkedFileCount: 1,
+				results: [],
+			})
 		}
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
@@ -130,7 +168,10 @@ describe(`bemlint`, () => {
 			let rootFile = path.join(tempDir, `root.html`)
 			await writeFile(rootFile, `<div class="block">Content</div>`)
 
-			await expect(bemlint([`${tempDir}/**/*.html`])).resolves.toBeUndefined()
+			let result = await bemlint([`${tempDir}/**/*.html`])
+
+			expect(result.checkedFileCount).toBeGreaterThan(0)
+			expect(result.results).toEqual([])
 		}
 		finally {
 			await rm(tempDir, { recursive: true, force: true })

@@ -1,24 +1,19 @@
 import { error } from "node:console"
-import process from "node:process"
 import { styleText } from "node:util"
 
 import { generateAsciiTree } from "./generateAsciiTree.ts"
-import type { FileLintError, FileLintSuccess } from "./types.ts"
+import type { FileLintResult } from "./types.ts"
 
 /**
  * Output lint results for a single file
  *
- * @param {FileLintSuccess | FileLintError} result - Lint result
+ * @param {FileLintResult} result - Lint result
  */
-export function reportFileResult (result: FileLintSuccess | FileLintError): void {
-	process.exitCode = 1
-	process.env.FORCE_COLOR = `2`
-
-	if (`errorObj` in result && result.errorObj) {
+export function reportFileResult (result: FileLintResult): void {
+	if (`errorObj` in result) {
 		error(`Error reading file ${result.filePath}:`, result.errorObj.message)
 		return
 	}
 
-	let successResult = result as FileLintSuccess
-	error(`\n`, generateAsciiTree(successResult.ast), styleText([`red`], `\n\nFile: ${successResult.filePath}\nbemlint: ${successResult.warningCount} issue${successResult.warningCount > 1 ? `s` : ``} found!\n`))
+	error(`\n`, generateAsciiTree(result.ast), styleText([`red`], `\n\nFile: ${result.filePath}\nbemlint: ${result.warningCount} issue${result.warningCount > 1 ? `s` : ``} found!\n`))
 }

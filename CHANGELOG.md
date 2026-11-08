@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ## [Unreleased]
 
+### Changed
+
+- The Node.js API now returns a summary and per-file results without printing reports or changing process state.
+
 ## [6.0.5] — 2026–07–02
 
 ### Fixed

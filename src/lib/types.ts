@@ -41,7 +41,14 @@ export type FileLintError = {
 	errorObj: Error,
 }
 
-export type FileLintResult = FileLintSuccess | FileLintError | null
+export type FileLintResult = FileLintSuccess | FileLintError
+
+export type LintFileResult = FileLintResult | null
+
+export type BemlintResult = {
+	checkedFileCount: number,
+	results: FileLintResult[],
+}
 
 export type AsciiTreeOptions = {
 	prefix?: string,

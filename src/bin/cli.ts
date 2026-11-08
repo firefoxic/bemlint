@@ -4,6 +4,7 @@ import { createRequire } from "node:module"
 import process from "node:process"
 
 import { bemlint } from "../lib/bemlint.ts"
+import { reportFileResult } from "../lib/reportFileResult.ts"
 
 const HELP_TEXT = `
     CLI tool for HTML linting using BEM methodology.
@@ -44,7 +45,14 @@ for (let arg of process.argv.slice(2)) {
 }
 
 try {
-	await bemlint(patterns)
+	let result = await bemlint(patterns)
+
+	if (result.results.length > 0) {
+		process.env.FORCE_COLOR = `2`
+		process.exitCode = 1
+
+		for (let fileResult of result.results) reportFileResult(fileResult)
+	}
 }
 catch (errorObj) {
 	// oxlint-disable-next-line no-console

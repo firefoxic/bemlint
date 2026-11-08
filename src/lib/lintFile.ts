@@ -1,15 +1,15 @@
 import { readFile } from "node:fs/promises"
 
 import { lintContent } from "./lintContent.ts"
-import type { FileLintResult } from "./types.ts"
+import type { LintFileResult } from "./types.ts"
 
 /**
  * Lint a single HTML file for BEM methodology compliance
  *
  * @param {string} filePath - Path to the HTML file.
- * @returns {Promise<FileLintResult>} Lint result or null if no issues found.
+ * @returns {Promise<LintFileResult>} Lint result or null if no issues found.
  */
-export async function lintFile (filePath: string): Promise<FileLintResult> {
+export async function lintFile (filePath: string): Promise<LintFileResult> {
 	try {
 		let content = await readFile(filePath, `utf8`)
 		let { warningCount, ast } = lintContent(content)

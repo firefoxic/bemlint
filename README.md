@@ -77,6 +77,29 @@ For brevity, the examples below will use the global installation variant. Exp
 	bemlint dist/about.html dest/blog
 	```
 
+### Node.js API
+
+The `bemlint()` function returns the number of checked files and results for files with BEM issues or file errors. It does not print output or change the process exit code.
+
+```js
+import { bemlint } from "@firefoxic/bemlint"
+
+let result = await bemlint(`dist`)
+
+console.log(`Checked ${result.checkedFileCount} files`)
+
+for (let fileResult of result.results) {
+	if (`errorObj` in fileResult) {
+		console.error(fileResult.filePath, fileResult.errorObj.message)
+	}
+	else {
+		console.error(fileResult.filePath, fileResult.warningCount)
+	}
+}
+```
+
+The function rejects when no input patterns are supplied or when they match no HTML files.
+
 ## Understanding results
 
 ### ✅ No issues found

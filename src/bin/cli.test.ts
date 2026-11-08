@@ -13,15 +13,20 @@ async function mktempDir (): Promise<string> {
 describe(`cli`, () => {
 	let originalArgv: string[]
 	let originalExit: typeof process.exit
+	let originalExitCode: typeof process.exitCode
+	let originalForceColor: string | undefined
 	let infoMock: ReturnType<typeof vi.fn>
 	let bemlintMock: ReturnType<typeof vi.fn>
 
 	beforeEach(async () => {
 		originalArgv = process.argv
 		originalExit = process.exit
+		originalExitCode = process.exitCode
+		originalForceColor = process.env.FORCE_COLOR
 
 		let { bemlint } = await import(`../lib/bemlint.js`)
 		bemlintMock = bemlint as ReturnType<typeof vi.fn>
+		bemlintMock.mockResolvedValue({ checkedFileCount: 0, results: [] })
 
 		infoMock = vi.fn()
 
@@ -34,6 +39,8 @@ describe(`cli`, () => {
 	afterEach(() => {
 		process.argv = originalArgv
 		process.exit = originalExit
+		process.exitCode = originalExitCode
+		process.env.FORCE_COLOR = originalForceColor
 		vi.restoreAllMocks()
 		vi.resetModules()
 	})
@@ -106,6 +113,25 @@ describe(`cli`, () => {
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
 		}
+	})
+
+	it(`should report lint results and set the exit code`, async () => {
+		bemlintMock.mockResolvedValueOnce({
+			checkedFileCount: 1,
+			results: [
+				{
+					filePath: `invalid.html`,
+					warningCount: 1,
+					ast: { label: `div`, nodes: [] },
+				},
+			],
+		})
+		process.argv = [`node`, `cli.js`, `invalid.html`]
+
+		await import(`./cli.js`)
+
+		expect(process.exitCode).toBe(1)
+		expect(process.env.FORCE_COLOR).toBe(`2`)
 	})
 
 	it(`should handle errors from bemlint`, async () => {
