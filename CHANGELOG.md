@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 - BEM class names with empty segments or repeated separators are now reported as malformed.
 - BEM violations are now available as class-level diagnostics with rule IDs and source locations in the Node.js API and JSON CLI output.
 
+### Fixed
+
+- Invalid inputs and file read failures now exit with code 2, separately from detected BEM violations.
+
 ## [6.0.5] — 2026–07–02
 
 ### Fixed

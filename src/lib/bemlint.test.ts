@@ -1,5 +1,5 @@
 import { error } from "node:console"
-import { mkdtemp, rm, writeFile } from "node:fs/promises"
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
 
@@ -13,7 +13,10 @@ vi.mock(`node:console`, () => ({
 
 describe(`bemlint`, () => {
 	it(`should throw error for empty input`, async () => {
-		await expect(bemlint([])).rejects.toThrow(`No input patterns specified`)
+		await expect(bemlint([])).rejects.toMatchObject({
+			code: `no-input-patterns`,
+			message: `No input patterns specified`,
+		})
 	})
 
 	it(`should process valid HTML file without errors`, async () => {
@@ -114,7 +117,49 @@ describe(`bemlint`, () => {
 		try {
 			await expect(bemlint([path.join(tempDir, `*.html`)]))
 				.rejects
-				.toThrow(`No HTML files found matching the specified patterns`)
+				.toMatchObject({
+					code: `no-html-files`,
+					message: `No HTML files found matching the specified patterns`,
+				})
+		}
+		finally {
+			await rm(tempDir, { recursive: true, force: true })
+		}
+	})
+
+	it(`should report direct input paths that do not exist`, async () => {
+		let tempDir = await mktempDir()
+		let missingFile = path.join(tempDir, `missing.html`)
+
+		try {
+			await expect(bemlint(missingFile)).rejects.toMatchObject({
+				code: `input-path`,
+				message: `Input path not found: ${missingFile}`,
+			})
+		}
+		finally {
+			await rm(tempDir, { recursive: true, force: true })
+		}
+	})
+
+	it(`should return file read errors alongside successfully checked files`, async () => {
+		let tempDir = await mktempDir()
+		let validFile = path.join(tempDir, `valid.html`)
+		let unreadablePath = path.join(tempDir, `unreadable.html`)
+
+		try {
+			await writeFile(validFile, `<div class="block">Content</div>`)
+			await mkdir(unreadablePath)
+
+			let result = await bemlint(`${tempDir}/*.html`)
+
+			expect(result.checkedFileCount).toBe(2)
+			expect(result.results).toHaveLength(1)
+			expect(result.results[0]).toMatchObject({
+				filePath: unreadablePath,
+				code: `file-read`,
+				errorObj: { code: `EISDIR` },
+			})
 		}
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
@@ -160,8 +205,6 @@ describe(`bemlint`, () => {
 
 		try {
 			let nodeModulesFile = path.join(tempDir, `node_modules`, `package`, `test.html`)
-			// Create directory first
-			let { mkdir } = await import(`node:fs/promises`)
 			await mkdir(path.join(tempDir, `node_modules`, `package`), { recursive: true })
 			await writeFile(nodeModulesFile, `<div class="block">Content</div>`)
 

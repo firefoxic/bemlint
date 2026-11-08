@@ -45,6 +45,7 @@ describe(`reportFileResult`, () => {
 		try {
 			let result: FileLintError = {
 				filePath: `/test/file.html`,
+				code: `file-read`,
 				errorObj: new Error(`Test error`),
 			}
 

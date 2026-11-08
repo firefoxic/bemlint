@@ -10,15 +10,18 @@ import type { LintFileResult } from "./types.ts"
  * @returns {Promise<LintFileResult>} Lint result or null if no issues found.
  */
 export async function lintFile (filePath: string): Promise<LintFileResult> {
+	let content: string
+
 	try {
-		let content = await readFile(filePath, `utf8`)
-		let { warningCount, diagnostics, ast } = lintContent(content)
-
-		if (!warningCount) return null
-
-		return { filePath, warningCount, diagnostics, ast }
+		content = await readFile(filePath, `utf8`)
 	}
 	catch (errorObj) {
-		return { filePath, errorObj: errorObj as Error }
+		let readError = errorObj instanceof Error ? errorObj : new Error(String(errorObj))
+		return { filePath, code: `file-read`, errorObj: readError }
 	}
+
+	let { warningCount, diagnostics, ast } = lintContent(content)
+	if (!warningCount) return null
+
+	return { filePath, warningCount, diagnostics, ast }
 }

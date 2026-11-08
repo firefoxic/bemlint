@@ -1,5 +1,11 @@
 import { stat } from "node:fs/promises"
 
+import { BemlintError } from "./bemlintError.ts"
+
+function hasGlobPattern (input: string): boolean {
+	return [`*`, `?`, `[`, `{`].some((token) => input.includes(token))
+}
+
 /**
  * Normalize input patterns, converting directories to glob patterns
  *
@@ -11,8 +17,24 @@ export async function resolvePatterns (input: string[] | string): Promise<string
 
 	return await Promise.all(
 		inputs.map(async (inputItem) => {
-			let stats = await stat(inputItem).catch(() => null)
-			return stats?.isDirectory() ? `${inputItem.replace(/\/+$/u, ``)}/**/*.html` : inputItem
+			try {
+				let stats = await stat(inputItem)
+				return stats.isDirectory() ? `${inputItem.replace(/\/+$/u, ``)}/**/*.html` : inputItem
+			}
+			catch (errorObj) {
+				let errorCode = errorObj instanceof Error && `code` in errorObj ? errorObj.code : undefined
+
+				if ((errorCode === `ENOENT` || errorCode === `ENOTDIR`) && hasGlobPattern(inputItem)) {
+					return inputItem
+				}
+
+				if (errorCode === `ENOENT` || errorCode === `ENOTDIR`) {
+					throw new BemlintError(`input-path`, `Input path not found: ${inputItem}`)
+				}
+
+				let message = errorObj instanceof Error ? errorObj.message : String(errorObj)
+				throw new BemlintError(`input-path`, `Unable to inspect input path "${inputItem}": ${message}`)
+			}
 		}),
 	)
 }

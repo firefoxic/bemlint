@@ -1,9 +1,14 @@
-import { mkdir, rm } from "node:fs/promises"
+import { mkdir, rm, stat, writeFile } from "node:fs/promises"
 import path from "node:path"
 
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 
 import { resolvePatterns } from "./resolvePatterns.ts"
+
+vi.mock(`node:fs/promises`, async (importOriginal) => {
+	let actual = await importOriginal<typeof import("node:fs/promises")>()
+	return { ...actual, stat: vi.fn(actual.stat) }
+})
 
 describe(`resolvePatterns`, () => {
 	it(`should return string input as array with single pattern`, async () => {
@@ -59,11 +64,13 @@ describe(`resolvePatterns`, () => {
 
 	it(`should handle mixed input of files and directories`, async () => {
 		let tempDir = await mktempDir()
+		let filePath = path.join(tempDir, `file.html`)
 
 		try {
-			let result = await resolvePatterns([`file.html`, tempDir, `**/*.html`])
+			await writeFile(filePath, ``)
+			let result = await resolvePatterns([filePath, tempDir, `**/*.html`])
 
-			expect(result).toEqual([`file.html`, `${tempDir}/**/*.html`, `**/*.html`])
+			expect(result).toEqual([filePath, `${tempDir}/**/*.html`, `**/*.html`])
 		}
 		finally {
 			await rm(tempDir, { recursive: true, force: true })
@@ -77,9 +84,33 @@ describe(`resolvePatterns`, () => {
 	})
 
 	it(`should handle empty string input`, async () => {
-		let result = await resolvePatterns(``)
+		await expect(resolvePatterns(``)).rejects.toMatchObject({
+			code: `input-path`,
+			message: `Input path not found: `,
+		})
+	})
 
-		expect(result).toEqual([``])
+	it(`should reject a missing literal path`, async () => {
+		await expect(resolvePatterns(`missing.html`)).rejects.toMatchObject({
+			code: `input-path`,
+			message: `Input path not found: missing.html`,
+		})
+	})
+
+	it(`should report other path inspection errors`, async () => {
+		await expect(resolvePatterns(`\u0000`)).rejects.toMatchObject({
+			code: `input-path`,
+			message: expect.stringContaining(`Unable to inspect input path`),
+		})
+	})
+
+	it(`should normalize non-Error path inspection failures`, async () => {
+		vi.mocked(stat).mockRejectedValueOnce(`stat failure`)
+
+		await expect(resolvePatterns(`file.html`)).rejects.toMatchObject({
+			code: `input-path`,
+			message: `Unable to inspect input path "file.html": stat failure`,
+		})
 	})
 })
 

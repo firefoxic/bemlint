@@ -26,6 +26,7 @@ const HELP_TEXT = `
     Exit codes
         0  No BEM issues found
         1  BEM issues found
+        2  Invalid input or file processing error
 `
 
 const patterns: string[] = []
@@ -63,7 +64,10 @@ try {
 
 	let result = await bemlint(patterns)
 
-	if (result.results.length > 0) {
+	if (result.results.some((fileResult) => `errorObj` in fileResult)) {
+		process.exitCode = 2
+	}
+	else if (result.results.length > 0) {
 		process.exitCode = 1
 	}
 
@@ -75,6 +79,7 @@ try {
 					return {
 						filePath: fileResult.filePath,
 						error: {
+							code: fileResult.code,
 							name: fileResult.errorObj.name,
 							message: fileResult.errorObj.message,
 						},
@@ -101,15 +106,18 @@ catch (errorObj) {
 	let error = errorObj instanceof Error ? errorObj : new Error(String(errorObj))
 
 	if (outputFormat === `json`) {
+		let code = error.name === `BemlintError` && `code` in error && typeof error.code === `string`
+			? error.code
+			: `processing-error`
 		// oxlint-disable-next-line no-console
-		console.info(JSON.stringify({ error: { name: error.name, message: error.message } }))
+		console.info(JSON.stringify({ error: { code, name: error.name, message: error.message } }))
 	}
 	else {
 		// oxlint-disable-next-line no-console
 		console.error(`Error: ${error.message}\nRun \`bemlint --help\` for usage information`)
 	}
 
-	process.exit(1)
+	process.exit(2)
 }
 
 /**

@@ -1,6 +1,13 @@
-import { describe, expect, it } from "vitest"
+import { readFile } from "node:fs/promises"
+
+import { describe, expect, it, vi } from "vitest"
 
 import { lintFile } from "./lintFile.ts"
+
+vi.mock(`node:fs/promises`, async (importOriginal) => {
+	let actual = await importOriginal<typeof import("node:fs/promises")>()
+	return { ...actual, readFile: vi.fn(actual.readFile) }
+})
 
 describe(`lintFile`, () => {
 	it(`should return null for valid BEM file`, async () => {
@@ -31,6 +38,7 @@ describe(`lintFile`, () => {
 
 		expect(result).not.toBeNull()
 		expect(result).toHaveProperty(`filePath`)
+		expect(result).toHaveProperty(`code`, `file-read`)
 		expect(result).toHaveProperty(`errorObj`)
 	})
 
@@ -39,6 +47,18 @@ describe(`lintFile`, () => {
 
 		expect(result).not.toBeNull()
 		expect(result).toHaveProperty(`errorObj`)
+	})
+
+	it(`should normalize non-Error file read failures`, async () => {
+		vi.mocked(readFile).mockRejectedValueOnce(`read failure`)
+		let filePath = new URL(`../../fixtures/valid.html`, import.meta.url).pathname
+		let result = await lintFile(filePath)
+
+		expect(result).toMatchObject({
+			filePath,
+			code: `file-read`,
+			errorObj: { message: `read failure` },
+		})
 	})
 
 	it(`should return correct warning count for element error file`, async () => {

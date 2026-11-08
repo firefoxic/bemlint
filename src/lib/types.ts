@@ -45,6 +45,7 @@ export type FileLintSuccess = {
 
 export type FileLintError = {
 	filePath: string,
+	code: `file-read`,
 	errorObj: Error,
 }
 

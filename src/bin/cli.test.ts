@@ -4,6 +4,8 @@ import path from "node:path"
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
+import { BemlintError } from "../lib/bemlintError.ts"
+
 vi.mock(`../lib/bemlint.js`, () => ({ bemlint: vi.fn() }))
 
 async function mktempDir (): Promise<string> {
@@ -194,6 +196,7 @@ describe(`cli`, () => {
 			results: [
 				{
 					filePath: `unreadable.html`,
+					code: `file-read`,
 					errorObj: new Error(`Permission denied`),
 				},
 			],
@@ -207,23 +210,23 @@ describe(`cli`, () => {
 			results: [
 				{
 					filePath: `unreadable.html`,
-					error: { name: `Error`, message: `Permission denied` },
+					error: { code: `file-read`, name: `Error`, message: `Permission denied` },
 				},
 			],
 		}))
-		expect(process.exitCode).toBe(1)
+		expect(process.exitCode).toBe(2)
 	})
 
 	it(`should emit invocation errors in JSON format`, async () => {
-		bemlintMock.mockRejectedValueOnce(new Error(`No input patterns specified`))
+		bemlintMock.mockRejectedValueOnce(new BemlintError(`no-input-patterns`, `No input patterns specified`))
 		process.argv = [`node`, `cli.js`, `--format`, `json`]
 
 		await import(`./cli.js`)
 
 		expect(infoMock).toHaveBeenCalledWith(JSON.stringify({
-			error: { name: `Error`, message: `No input patterns specified` },
+			error: { code: `no-input-patterns`, name: `BemlintError`, message: `No input patterns specified` },
 		}))
-		expect(process.exit).toHaveBeenCalledWith(1)
+		expect(process.exit).toHaveBeenCalledWith(2)
 	})
 
 	it(`should serialize non-Error failures in JSON format`, async () => {
@@ -233,9 +236,9 @@ describe(`cli`, () => {
 		await import(`./cli.js`)
 
 		expect(infoMock).toHaveBeenCalledWith(JSON.stringify({
-			error: { name: `Error`, message: `Unexpected failure` },
+			error: { code: `processing-error`, name: `Error`, message: `Unexpected failure` },
 		}))
-		expect(process.exit).toHaveBeenCalledWith(1)
+		expect(process.exit).toHaveBeenCalledWith(2)
 	})
 
 	it.each([
@@ -250,7 +253,7 @@ describe(`cli`, () => {
 
 		expect(bemlintMock).not.toHaveBeenCalled()
 		expect(errorMock).toHaveBeenCalledWith(`Error: ${message}\nRun \`bemlint --help\` for usage information`)
-		expect(process.exit).toHaveBeenCalledWith(1)
+		expect(process.exit).toHaveBeenCalledWith(2)
 	})
 
 	it(`should handle errors from bemlint`, async () => {
@@ -267,6 +270,6 @@ describe(`cli`, () => {
 
 		expect(bemlintMock).toHaveBeenCalledWith([`test.html`])
 		expect(errorMock).toHaveBeenCalledWith(`Error: Test error\nRun \`bemlint --help\` for usage information`)
-		expect(process.exit).toHaveBeenCalledWith(1)
+		expect(process.exit).toHaveBeenCalledWith(2)
 	})
 })

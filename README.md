@@ -106,11 +106,17 @@ for (let fileResult of result.results) {
 }
 ```
 
-The function rejects when no input patterns are supplied or when they match no HTML files.
+The function rejects with a `BemlintError` when input patterns are missing or inaccessible, or when they match no HTML files. Per-file read failures are returned in `results` with the `file-read` code.
 
-The JSON CLI output uses the same diagnostic fields. File errors include an `error` object with `name` and `message`; invocation errors are emitted as a top-level `error` object.
+The JSON CLI output uses the same diagnostic fields. File errors include an `error` object with `code`, `name`, and `message`; invocation errors are emitted as a top-level `error` object with a `BemlintError` code or `processing-error`.
 
 ## Understanding results
+
+### Exit codes
+
+- `0` — No BEM issues or file errors found.
+- `1` — BEM issues found.
+- `2` — Invalid input, a file processing error, or an unsupported output format.
 
 ### ✅ No issues found
 
