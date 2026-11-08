@@ -23,7 +23,8 @@
 		".": {
 			"import": "./dist/lib/bemlint.js",
 			"types": "./dist/lib/bemlint.d.ts"
-		}
+		},
+		"./package.json": "./package.json"
 	},
 	"files": [
 		"./dist/"
