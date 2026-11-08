@@ -1,5 +1,5 @@
 import { mkdir, rm } from "node:fs/promises"
-import { join } from "node:path"
+import path from "node:path"
 
 import { describe, expect, it } from "vitest"
 
@@ -84,7 +84,7 @@ describe(`resolvePatterns`, () => {
 })
 
 async function mktempDir (): Promise<string> {
-	let tempDir = join(`/tmp`, `bemlint-test-${Date.now()}`)
+	let tempDir = path.join(`/tmp`, `bemlint-test-${Date.now()}`)
 	await mkdir(tempDir, { recursive: true })
 	return tempDir
 }

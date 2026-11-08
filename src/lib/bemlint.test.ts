@@ -1,6 +1,6 @@
 import { mkdtemp, rm, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
-import { join } from "node:path"
+import path from "node:path"
 
 import { describe, expect, it, vi } from "vitest"
 
@@ -19,7 +19,7 @@ describe(`bemlint`, () => {
 		let tempDir = await mktempDir()
 
 		try {
-			let validFile = join(tempDir, `valid.html`)
+			let validFile = path.join(tempDir, `valid.html`)
 			await writeFile(validFile, `
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@ describe(`bemlint`, () => {
 		let tempDir = await mktempDir()
 
 		try {
-			let invalidFile = join(tempDir, `invalid.html`)
+			let invalidFile = path.join(tempDir, `invalid.html`)
 			await writeFile(invalidFile, `
 <!DOCTYPE html>
 <html>
@@ -63,8 +63,8 @@ describe(`bemlint`, () => {
 		let tempDir = await mktempDir()
 
 		try {
-			let file1 = join(tempDir, `file1.html`)
-			let file2 = join(tempDir, `file2.html`)
+			let file1 = path.join(tempDir, `file1.html`)
+			let file2 = path.join(tempDir, `file2.html`)
 
 			await writeFile(file1, `<div class="block">File 1</div>`)
 			await writeFile(file2, `<div class="block__element">File 2</div>`)
@@ -80,7 +80,7 @@ describe(`bemlint`, () => {
 		let tempDir = await mktempDir()
 
 		try {
-			await expect(bemlint([join(tempDir, `*.html`)]))
+			await expect(bemlint([path.join(tempDir, `*.html`)]))
 				.rejects
 				.toThrow(`No HTML files found matching the specified patterns`)
 		}
@@ -93,7 +93,7 @@ describe(`bemlint`, () => {
 		let tempDir = await mktempDir()
 
 		try {
-			let htmlFile = join(tempDir, `test.html`)
+			let htmlFile = path.join(tempDir, `test.html`)
 			await writeFile(htmlFile, `<div class="block">Content</div>`)
 
 			await expect(bemlint(tempDir)).resolves.toBeUndefined()
@@ -107,7 +107,7 @@ describe(`bemlint`, () => {
 		let tempDir = await mktempDir()
 
 		try {
-			let htmlFile = join(tempDir, `test.html`)
+			let htmlFile = path.join(tempDir, `test.html`)
 			await writeFile(htmlFile, `<div class="block">Content</div>`)
 
 			await expect(bemlint([`${tempDir}/*.html`])).resolves.toBeUndefined()
@@ -121,13 +121,13 @@ describe(`bemlint`, () => {
 		let tempDir = await mktempDir()
 
 		try {
-			let nodeModulesFile = join(tempDir, `node_modules`, `package`, `test.html`)
+			let nodeModulesFile = path.join(tempDir, `node_modules`, `package`, `test.html`)
 			// Create directory first
 			let { mkdir } = await import(`node:fs/promises`)
-			await mkdir(join(tempDir, `node_modules`, `package`), { recursive: true })
+			await mkdir(path.join(tempDir, `node_modules`, `package`), { recursive: true })
 			await writeFile(nodeModulesFile, `<div class="block">Content</div>`)
 
-			let rootFile = join(tempDir, `root.html`)
+			let rootFile = path.join(tempDir, `root.html`)
 			await writeFile(rootFile, `<div class="block">Content</div>`)
 
 			await expect(bemlint([`${tempDir}/**/*.html`])).resolves.toBeUndefined()
@@ -139,5 +139,5 @@ describe(`bemlint`, () => {
 })
 
 async function mktempDir (): Promise<string> {
-	return await mkdtemp(join(tmpdir(), `bemlint-test-`))
+	return await mkdtemp(path.join(tmpdir(), `bemlint-test-`))
 }
