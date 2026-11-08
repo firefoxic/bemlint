@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { lintFile } from "./lintFile.js"
+import { lintFile } from "./lintFile.ts"
 
 describe(`lintFile`, () => {
 	it(`should return null for valid BEM file`, async () => {

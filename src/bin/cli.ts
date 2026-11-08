@@ -3,7 +3,7 @@
 import { createRequire } from "node:module"
 import process from "node:process"
 
-import { bemlint } from "../lib/bemlint.js"
+import { bemlint } from "../lib/bemlint.ts"
 
 const HELP_TEXT = `
     CLI tool for HTML linting using BEM methodology.

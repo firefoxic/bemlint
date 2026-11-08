@@ -1,8 +1,8 @@
 import { glob } from "node:fs/promises"
 
-import { lintFile } from "./lintFile.js"
-import { reportFileResult } from "./reportFileResult.js"
-import { resolvePatterns } from "./resolvePatterns.js"
+import { lintFile } from "./lintFile.ts"
+import { reportFileResult } from "./reportFileResult.ts"
+import { resolvePatterns } from "./resolvePatterns.ts"
 
 /**
  * Lint multiple HTML files for BEM methodology compliance

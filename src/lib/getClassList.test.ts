@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
-import { getClassList } from "./getClassList.js"
-import type { ParsedElement } from "./types.js"
+import { getClassList } from "./getClassList.ts"
+import type { ParsedElement } from "./types.ts"
 
 describe(`getClassList`, () => {
 	it(`should return empty array for element without class`, () => {

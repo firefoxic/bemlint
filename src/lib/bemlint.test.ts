@@ -4,7 +4,7 @@ import path from "node:path"
 
 import { describe, expect, it, vi } from "vitest"
 
-import { bemlint } from "./bemlint.js"
+import { bemlint } from "./bemlint.ts"
 
 vi.mock(`node:console`, () => ({
 	error: vi.fn(),

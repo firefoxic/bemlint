@@ -2,8 +2,8 @@ import { error } from "node:console"
 import process from "node:process"
 import { styleText } from "node:util"
 
-import { generateAsciiTree } from "./generateAsciiTree.js"
-import type { FileLintError, FileLintSuccess } from "./types.js"
+import { generateAsciiTree } from "./generateAsciiTree.ts"
+import type { FileLintError, FileLintSuccess } from "./types.ts"
 
 /**
  * Output lint results for a single file

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
-import { getId } from "./getId.js"
-import type { ParsedElement } from "./types.js"
+import { getId } from "./getId.ts"
+import type { ParsedElement } from "./types.ts"
 
 describe(`getId`, () => {
 	it(`should return empty string for element without id`, () => {

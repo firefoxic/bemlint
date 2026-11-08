@@ -1,7 +1,7 @@
-import { SEPARATORS } from "./constants.js"
-import { getClassList } from "./getClassList.js"
-import { setError } from "./setError.js"
-import type { ParsedElement, Warnings } from "./types.js"
+import { SEPARATORS } from "./constants.ts"
+import { getClassList } from "./getClassList.ts"
+import { setError } from "./setError.ts"
+import type { ParsedElement, Warnings } from "./types.ts"
 
 /**
  * Checks if the given node has a BEM modifier.

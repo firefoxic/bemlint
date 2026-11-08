@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { SEPARATORS } from "./constants.js"
+import { SEPARATORS } from "./constants.ts"
 
 describe(`separators`, () => {
 	it(`should have correct element separator`, () => {

@@ -1,6 +1,6 @@
-import { getClassList } from "./getClassList.js"
-import { setError } from "./setError.js"
-import type { ParsedElement, Warnings } from "./types.js"
+import { getClassList } from "./getClassList.ts"
+import { setError } from "./setError.ts"
+import type { ParsedElement, Warnings } from "./types.ts"
 
 /**
  * Checks separators in class names.

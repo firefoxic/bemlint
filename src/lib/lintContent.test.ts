@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs"
 
 import { describe, expect, it } from "vitest"
 
-import { lintContent } from "./lintContent.js"
+import { lintContent } from "./lintContent.ts"
 
 describe(`bemlint CLI`, () => {
 	it(`should fail markup with an incorrect BEM tree`, () => {

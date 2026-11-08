@@ -3,7 +3,7 @@ import path from "node:path"
 
 import { describe, expect, it } from "vitest"
 
-import { resolvePatterns } from "./resolvePatterns.js"
+import { resolvePatterns } from "./resolvePatterns.ts"
 
 describe(`resolvePatterns`, () => {
 	it(`should return string input as array with single pattern`, async () => {

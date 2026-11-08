@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
-import { convertHtmlToAst } from "./convertHtmlToAst.js"
-import type { ParsedElement, Warnings } from "./types.js"
+import { convertHtmlToAst } from "./convertHtmlToAst.ts"
+import type { ParsedElement, Warnings } from "./types.ts"
 
 describe(`convertHtmlToAst`, () => {
 	it(`should return AST with empty nodes for empty HTML tree`, () => {

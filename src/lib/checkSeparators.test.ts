@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
-import { checkSeparators } from "./checkSeparators.js"
-import type { ParsedElement, Warnings } from "./types.js"
+import { checkSeparators } from "./checkSeparators.ts"
+import type { ParsedElement, Warnings } from "./types.ts"
 
 describe(`checkSeparators`, () => {
 	it(`should not set error for element without underscores`, () => {

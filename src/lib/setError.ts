@@ -1,4 +1,4 @@
-import type { CustomDataSet, Warnings } from "./types.js"
+import type { CustomDataSet, Warnings } from "./types.ts"
 
 /**
  * Sets an error in the provided custom data set.

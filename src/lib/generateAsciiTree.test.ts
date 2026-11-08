@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
-import { generateAsciiTree } from "./generateAsciiTree.js"
-import type { AstNode } from "./types.js"
+import { generateAsciiTree } from "./generateAsciiTree.ts"
+import type { AstNode } from "./types.ts"
 
 describe(`generateAsciiTree`, () => {
 	it(`should return empty string for empty AST`, () => {

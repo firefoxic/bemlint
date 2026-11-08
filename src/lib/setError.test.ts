@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
-import { setError } from "./setError.js"
-import type { CustomDataSet, Warnings } from "./types.js"
+import { setError } from "./setError.ts"
+import type { CustomDataSet, Warnings } from "./types.ts"
 
 describe(`setError`, () => {
 	it(`should increment warnings count`, () => {

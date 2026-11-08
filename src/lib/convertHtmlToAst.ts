@@ -1,8 +1,8 @@
-import { addClassesAsPrefixes } from "./addClassesAsPrefixes.js"
-import { createLabel } from "./createLabel.js"
-import { formatTree } from "./formatTree.js"
-import { hasClass } from "./hasClass.js"
-import type { AstNode, ParsedElement, Warnings } from "./types.js"
+import { addClassesAsPrefixes } from "./addClassesAsPrefixes.ts"
+import { createLabel } from "./createLabel.ts"
+import { formatTree } from "./formatTree.ts"
+import { hasClass } from "./hasClass.ts"
+import type { AstNode, ParsedElement, Warnings } from "./types.ts"
 
 /**
  * Converts an HTML tree to an abstract syntax tree (AST).

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
-import { createLabel } from "./createLabel.js"
-import type { ParsedElement } from "./types.js"
+import { createLabel } from "./createLabel.ts"
+import type { ParsedElement } from "./types.ts"
 
 describe(`createLabel`, () => {
 	it(`should return tag name only`, () => {

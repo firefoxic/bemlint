@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
-import { checkBemElement } from "./checkBemElement.js"
-import type { ParsedElement, Warnings } from "./types.js"
+import { checkBemElement } from "./checkBemElement.ts"
+import type { ParsedElement, Warnings } from "./types.ts"
 
 describe(`checkBemElement`, () => {
 	it(`should not set error for element without BEM classes`, () => {

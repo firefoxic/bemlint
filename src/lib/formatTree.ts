@@ -1,10 +1,10 @@
-import { addClassesAsPrefixes } from "./addClassesAsPrefixes.js"
-import { checkBemElement } from "./checkBemElement.js"
-import { checkBemModifier } from "./checkBemModifier.js"
-import { checkSeparators } from "./checkSeparators.js"
-import { createLabel } from "./createLabel.js"
-import { hasClass } from "./hasClass.js"
-import type { AstNode, ParsedElement, Warnings } from "./types.js"
+import { addClassesAsPrefixes } from "./addClassesAsPrefixes.ts"
+import { checkBemElement } from "./checkBemElement.ts"
+import { checkBemModifier } from "./checkBemModifier.ts"
+import { checkSeparators } from "./checkSeparators.ts"
+import { createLabel } from "./createLabel.ts"
+import { hasClass } from "./hasClass.ts"
+import type { AstNode, ParsedElement, Warnings } from "./types.ts"
 
 /**
  * Formats the tree of HTML nodes and generates an abstract syntax tree (AST) based on the given HTML nodes.

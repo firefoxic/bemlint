@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest"
 
-import { reportFileResult } from "./reportFileResult.js"
-import type { FileLintError, FileLintSuccess } from "./types.js"
+import { reportFileResult } from "./reportFileResult.ts"
+import type { FileLintError, FileLintSuccess } from "./types.ts"
 
 vi.mock(`node:console`, () => ({
 	error: vi.fn(),

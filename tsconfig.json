@@ -1,29 +1,22 @@
 {
 	"compilerOptions": {
-		"target": "esnext",
+		"esModuleInterop": true,
 		"module": "nodenext",
-		"moduleResolution": "nodenext",
+		"noEmit": true,
+		"rewriteRelativeImportExtensions": true,
+		"types": [
+			"node",
+		],
 		"lib": [
 			"ESNext",
-			"DOM",
 		],
-		"types": [
-			"node"
-		],
-		"outDir": "./dist",
-		"rootDir": "./src",
-		"exactOptionalPropertyTypes": true,
-		"skipLibCheck": true,
-		"declaration": true,
-		"noEmitOnError": true,
-		"resolveJsonModule": true,
-		"isolatedDeclarations": true,
+		"verbatimModuleSyntax": true,
 	},
 	"include": [
-		"src/**/*",
+		"**/*",
 	],
 	"exclude": [
 		"dist",
-		"node_modules",
-	]
+		"tmp",
+	],
 }
