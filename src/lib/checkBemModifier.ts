@@ -1,5 +1,5 @@
-import { SEPARATORS } from "./constants.ts"
 import { getClassList } from "./getClassList.ts"
+import { parseBemClassName } from "./parseBemClassName.ts"
 import { setError } from "./setError.ts"
 import type { ParsedElement, Warnings } from "./types.ts"
 
@@ -11,15 +11,17 @@ import type { ParsedElement, Warnings } from "./types.ts"
  */
 export function checkBemModifier (node: ParsedElement, warnings: Warnings): void {
 	let classList = getClassList(node)
-	if (classList.join().indexOf(SEPARATORS.modifier) < 0) return
 
 	for (let classItem of classList) {
-		if (classItem.split(SEPARATORS.modifier).length > 1) {
-			let modifierPrefix = classItem.split(SEPARATORS.modifier)[0]
+		let result = parseBemClassName(classItem)
+		if (`error` in result || !result.parts.modifier) continue
 
-			if (!classList.includes(modifierPrefix)) {
-				setError(warnings, node.customDataSet, `Modifier without modifiable!`)
-			}
+		let modifierPrefix = result.parts.element
+			? `${result.parts.block}__${result.parts.element}`
+			: result.parts.block
+
+		if (!classList.includes(modifierPrefix)) {
+			setError(warnings, node.customDataSet, `Modifier without modifiable!`)
 		}
 	}
 }

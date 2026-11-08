@@ -1,4 +1,5 @@
 import { getClassList } from "./getClassList.ts"
+import { parseBemClassName } from "./parseBemClassName.ts"
 import { setError } from "./setError.ts"
 import type { ParsedElement, Warnings } from "./types.ts"
 
@@ -10,17 +11,18 @@ import type { ParsedElement, Warnings } from "./types.ts"
  */
 export function checkSeparators (node: ParsedElement, warnings: Warnings): void {
 	let classList = getClassList(node)
-	if (classList.join().indexOf(`_`) < 0) return
-
-	let singleUnderscoreRegex = /^(?!.*--)(?=.*[^_]_[^_]).*$/u
-	let doubleModifierRegex = /--.*(__|--).*$/u
 
 	for (let classItem of classList) {
-		if (singleUnderscoreRegex.test(classItem)) {
+		let result = parseBemClassName(classItem)
+
+		if (`error` in result && result.error === `element-separator`) {
 			setError(warnings, node.customDataSet, `Wrong element separator!`)
 		}
-		if (doubleModifierRegex.test(classItem)) {
+		else if (`error` in result && result.error === `modifier-separator`) {
 			setError(warnings, node.customDataSet, `Wrong modifier value separator!`)
+		}
+		else if (`error` in result && result.error === `empty-name`) {
+			setError(warnings, node.customDataSet, `Empty BEM name segment!`)
 		}
 	}
 }

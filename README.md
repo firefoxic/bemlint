@@ -143,6 +143,9 @@ The following are considered errors:
 - ❌ Modifiers without base entity — `.block--mod-name:not(.block)`
 - ❌ Wrong element separators — `block-name_elem-name`
 - ❌ Wrong modifier value separators — `block--mod-name__mod-value`
+- ❌ Empty BEM name segments — `block__` or `block--`
+
+The linter checks BEM relationships and separator structure. It does not enforce letter case or restrict the characters used in names.
 
 ## Common use cases
 

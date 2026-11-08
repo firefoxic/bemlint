@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 ### Changed
 
 - The Node.js API now returns a summary and per-file results without printing reports or changing process state.
+- BEM class names with empty segments or repeated separators are now reported as malformed.
 
 ## [6.0.5] — 2026–07–02
 

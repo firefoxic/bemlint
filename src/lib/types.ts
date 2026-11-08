@@ -62,6 +62,17 @@ export type Separators = {
 	modifierValue: string,
 }
 
+export type BemClassParts = {
+	block: string,
+	element?: string,
+	modifier?: string,
+	modifierValue?: string,
+}
+
+export type BemClassNameError = `empty-name` | `element-separator` | `modifier-separator` | `nested-element`
+
+export type BemClassNameResult = { parts: BemClassParts } | { error: BemClassNameError }
+
 export type AstNode = {
 	label?: string,
 	nodes: AstNode[],

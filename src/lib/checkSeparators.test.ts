@@ -65,7 +65,7 @@ describe(`checkSeparators`, () => {
 		expect(node.customDataSet.errorDefs?.has(`Wrong modifier value separator!`)).toBe(true)
 	})
 
-	it(`should not set error for class with underscore but no double underscore`, () => {
+	it(`should set error for a class with an underscore but no double underscore`, () => {
 		let node = {
 			attribs: { "class": `my_custom_class` },
 			customDataSet: { prefixes: new Set() },
@@ -76,6 +76,38 @@ describe(`checkSeparators`, () => {
 
 		expect(warnings.count).toBe(1)
 		expect(node.customDataSet.errorDefs?.has(`Wrong element separator!`)).toBe(true)
+	})
+
+	it(`should detect wrong element separators alongside modifiers`, () => {
+		let node = {
+			attribs: { "class": `block_name--modifier` },
+			customDataSet: { prefixes: new Set() },
+		} as unknown as ParsedElement
+		let warnings: Warnings = { count: 0 }
+
+		checkSeparators(node, warnings)
+
+		expect(warnings.count).toBe(1)
+		expect(node.customDataSet.errorDefs?.has(`Wrong element separator!`)).toBe(true)
+	})
+
+	it.each([
+		`block__`,
+		`__element`,
+		`block--`,
+		`block--_value`,
+		`block--modifier_`,
+	])(`should flag empty name segments in %s`, (className) => {
+		let node = {
+			attribs: { "class": className },
+			customDataSet: { prefixes: new Set() },
+		} as unknown as ParsedElement
+		let warnings: Warnings = { count: 0 }
+
+		checkSeparators(node, warnings)
+
+		expect(warnings.count).toBe(1)
+		expect(node.customDataSet.errorDefs?.has(`Empty BEM name segment!`)).toBe(true)
 	})
 
 	it(`should handle complex valid BEM structure`, () => {

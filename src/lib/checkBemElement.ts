@@ -1,5 +1,5 @@
-import { SEPARATORS } from "./constants.ts"
 import { getClassList } from "./getClassList.ts"
+import { parseBemClassName } from "./parseBemClassName.ts"
 import { setError } from "./setError.ts"
 import type { ParsedElement, Warnings } from "./types.ts"
 
@@ -11,16 +11,16 @@ import type { ParsedElement, Warnings } from "./types.ts"
  */
 export function checkBemElement (node: ParsedElement, warnings: Warnings): void {
 	let classList = getClassList(node)
-	if (!classList.join().includes(SEPARATORS.element)) return
 
 	for (let classItem of classList) {
-		let classParts = classItem.split(SEPARATORS.element)
-
-		if (classParts.length > 2 && !classParts[1].includes(SEPARATORS.modifier) && !classParts[0].includes(SEPARATORS.modifier)) {
-			setError(warnings, node.customDataSet, `Element of element!`)
+		let result = parseBemClassName(classItem)
+		if (`error` in result) {
+			if (result.error === `nested-element`) setError(warnings, node.customDataSet, `Element of element!`)
+			continue
 		}
-		else if (classParts.length > 1 && !classParts[0].includes(SEPARATORS.modifier)) {
-			let prefix = classParts[0]
+
+		if (result.parts.element) {
+			let prefix = result.parts.block
 
 			if (!node.customDataSet.prefixes.has(prefix)) {
 				setError(warnings, node.customDataSet, `Element outside its block!`)
