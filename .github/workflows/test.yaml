@@ -22,7 +22,7 @@ jobs:
         with:
           cache: true
       - id: matrix
-        run: node .github/scripts/get-node-matrix.ts
+        run: pnpm dlx --package @firefoxic/utils get-node-matrix
   test:
     needs: discover
     runs-on: ubuntu-latest
