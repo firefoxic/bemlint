@@ -3,7 +3,7 @@ import { error } from "node:console"
 import { describe, expect, it, vi } from "vitest"
 
 import { reportFileResult } from "./reportFileResult.ts"
-import type { FileLintError, FileLintSuccess } from "./types.ts"
+import type { FileLintError, FileLintSuccess } from "./types.d.ts"
 
 vi.mock(`node:console`, () => ({
 	error: vi.fn(),

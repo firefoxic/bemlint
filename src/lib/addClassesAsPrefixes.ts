@@ -1,6 +1,6 @@
 import { SEPARATORS } from "./constants.ts"
 import { getClassList } from "./getClassList.ts"
-import type { ParsedElement } from "./types.ts"
+import type { ParsedElement } from "./types.d.ts"
 
 /**
  * Adds classes as prefixes to the given node, based on the class names in the parent node.

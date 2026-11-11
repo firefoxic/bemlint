@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
 import { setError } from "./setError.ts"
-import type { ParsedElement, Warnings } from "./types.ts"
+import type { ParsedElement, Warnings } from "./types.d.ts"
 
 describe(`setError`, () => {
 	it(`should increment warnings count`, () => {

@@ -1,4 +1,4 @@
-import type { ParsedElement, Warnings } from "./types.ts"
+import type { ParsedElement, Warnings } from "./types.d.ts"
 
 /**
  * Sets an error in the provided custom data set.

@@ -38,7 +38,7 @@ The style is enforced by `@firefoxic/oxlint-config` and matters when writing
 - relative imports carry the `.js` extension (`moduleResolution: nodenext`); type-only imports use `import type`
 - `isolatedDeclarations: true`, so every exported binding needs an explicit return/value type
 
-Tests use vitest with HTML fixtures in [fixtures/](fixtures/) resolved via `new URL("../../fixtures/...", import.meta.url)`; tests that need to write files use `mkdtemp` in `os.tmpdir()` and clean up in `finally`. Coverage is expected at 100% for `src/**` (excluding `types.ts`).
+Tests use vitest with HTML fixtures in [fixtures/](fixtures/) resolved via `new URL("../../fixtures/...", import.meta.url)`; tests that need to write files use `mkdtemp` in `os.tmpdir()` and clean up in `finally`. Coverage is expected at 100% for `src/**` (excluding `types.d.ts`).
 
 ## Prose typography
 

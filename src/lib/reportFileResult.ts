@@ -2,7 +2,7 @@ import { error } from "node:console"
 import { styleText } from "node:util"
 
 import { generateAsciiTree } from "./generateAsciiTree.ts"
-import type { FileLintResult } from "./types.ts"
+import type { FileLintResult } from "./types.d.ts"
 
 /**
  * Output lint results for a single file

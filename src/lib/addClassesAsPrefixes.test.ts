@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
 import { addClassesAsPrefixes } from "./addClassesAsPrefixes.ts"
-import type { ParsedElement } from "./types.ts"
+import type { ParsedElement } from "./types.d.ts"
 
 describe(`addClassesAsPrefixes`, () => {
 	it(`should initialize customDataSet with empty prefixes set`, () => {

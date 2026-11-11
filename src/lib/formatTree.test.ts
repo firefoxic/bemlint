@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
 import { formatTree } from "./formatTree.ts"
-import type { AstNode, ParsedElement, Warnings } from "./types.ts"
+import type { AstNode, ParsedElement, Warnings } from "./types.d.ts"
 
 describe(`formatTree`, () => {
 	it(`should handle empty nodes array`, () => {

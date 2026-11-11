@@ -1,4 +1,4 @@
-import type { AsciiTreeOptions, AstNode } from "./types.ts"
+import type { AsciiTreeOptions, AstNode } from "./types.d.ts"
 
 /**
  * Generates an ASCII tree representation of the given abstract syntax tree (AST).

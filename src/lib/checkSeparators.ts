@@ -1,7 +1,7 @@
 import { getClassList } from "./getClassList.ts"
 import { parseBemClassName } from "./parseBemClassName.ts"
 import { setError } from "./setError.ts"
-import type { ParsedElement, Warnings } from "./types.ts"
+import type { ParsedElement, Warnings } from "./types.d.ts"
 
 /**
  * Checks separators in class names.

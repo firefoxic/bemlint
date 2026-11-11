@@ -4,7 +4,7 @@ import { BemlintError } from "./bemlintError.ts"
 import { lintFile } from "./lintFile.ts"
 import { processInBatches } from "./processInBatches.ts"
 import { resolvePatterns } from "./resolvePatterns.ts"
-import type { BemlintResult, FileLintResult } from "./types.ts"
+import type { BemlintResult, FileLintResult } from "./types.d.ts"
 
 const MAX_CONCURRENT_FILES = 8
 
@@ -40,4 +40,4 @@ export async function bemlint (input: string[] | string): Promise<BemlintResult>
 
 export type { BemlintErrorCode } from "./bemlintError.ts"
 export { BemlintError } from "./bemlintError.ts"
-export type { BemlintResult } from "./types.ts"
+export type { BemlintResult } from "./types.d.ts"

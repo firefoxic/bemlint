@@ -1,4 +1,4 @@
-import type { Separators } from "./types.ts"
+import type { Separators } from "./types.d.ts"
 
 export const SEPARATORS: Separators = {
 	element: `__`,

@@ -2,7 +2,7 @@ import { parse } from "parse5"
 import { adapter } from "parse5-htmlparser2-tree-adapter"
 
 import { convertHtmlToAst } from "./convertHtmlToAst.ts"
-import type { LintContentResult, LintDiagnostic, ParsedElement, Warnings } from "./types.ts"
+import type { LintContentResult, LintDiagnostic, ParsedElement, Warnings } from "./types.d.ts"
 
 /**
  * Lint HTML content for BEM methodology compliance

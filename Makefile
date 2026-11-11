@@ -25,10 +25,11 @@ test: ## 🧪 Run tests [TEST_FLAGS=] [FILE=]
 	vitest $(TEST_FLAGS) $(FILE)
 .PHONY: test
 
-build: lint test ## 🏗️  Build the project
+build: ## 🏗️  Build the project
 	rm -rf dist
 	tsrs -p tsconfig.build.json
 	rm dist/bin/cli.d.ts
+	cp src/lib/types.d.ts dist/lib/types.d.ts
 .PHONY: build
 
 verify: lint test check build ## ✅ Run every check

@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises"
 
 import { lintContent } from "./lintContent.ts"
-import type { LintFileResult } from "./types.ts"
+import type { LintFileResult } from "./types.d.ts"
 
 /**
  * Lint a single HTML file for BEM methodology compliance

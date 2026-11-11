@@ -1,5 +1,5 @@
 import { SEPARATORS } from "./constants.ts"
-import type { BemClassNameResult, BemClassParts } from "./types.ts"
+import type { BemClassNameResult, BemClassParts } from "./types.d.ts"
 
 /**
  * Parses a class name according to the current two-dashes BEM notation.

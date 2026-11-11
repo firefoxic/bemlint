@@ -4,7 +4,7 @@ import { checkBemModifier } from "./checkBemModifier.ts"
 import { checkSeparators } from "./checkSeparators.ts"
 import { createLabel } from "./createLabel.ts"
 import { hasClass } from "./hasClass.ts"
-import type { AstNode, ParsedElement, Warnings } from "./types.ts"
+import type { AstNode, ParsedElement, Warnings } from "./types.d.ts"
 
 /**
  * Formats the tree of HTML nodes and generates an abstract syntax tree (AST) based on the given HTML nodes.

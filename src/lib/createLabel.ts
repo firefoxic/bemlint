@@ -2,7 +2,7 @@ import { styleText } from "node:util"
 
 import { getClassList } from "./getClassList.ts"
 import { getId } from "./getId.ts"
-import type { ParsedElement } from "./types.ts"
+import type { ParsedElement } from "./types.d.ts"
 
 /**
  * Generates a tree label based on the given node.

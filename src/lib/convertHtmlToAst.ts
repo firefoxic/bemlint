@@ -2,7 +2,7 @@ import { addClassesAsPrefixes } from "./addClassesAsPrefixes.ts"
 import { createLabel } from "./createLabel.ts"
 import { formatTree } from "./formatTree.ts"
 import { hasClass } from "./hasClass.ts"
-import type { AstNode, ParsedElement, Warnings } from "./types.ts"
+import type { AstNode, ParsedElement, Warnings } from "./types.d.ts"
 
 /**
  * Converts an HTML tree to an abstract syntax tree (AST).

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
 import { hasClass } from "./hasClass.ts"
-import type { ParsedElement } from "./types.ts"
+import type { ParsedElement } from "./types.d.ts"
 
 describe(`hasClass`, () => {
 	it(`should return false for element without attribs`, () => {

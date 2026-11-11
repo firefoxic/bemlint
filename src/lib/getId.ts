@@ -1,4 +1,4 @@
-import type { ParsedElement } from "./types.ts"
+import type { ParsedElement } from "./types.d.ts"
 
 /**
  * Helper function to get id from element attributes.
