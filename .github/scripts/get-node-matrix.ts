@@ -1,10 +1,8 @@
-import { appendFileSync, readFileSync } from "node:fs"
+import { appendFileSync } from "node:fs"
 
-let project: { engines?: { node?: string } } = JSON.parse(
-	readFileSync(new URL(`../../package.json`, import.meta.url), `utf8`),
-)
+import packageJson from "../../package.json" with { type: "json" }
 
-let range = project.engines?.node
+let range = packageJson.engines?.node
 
 if (!range) throw new Error(`Project package.json does not specify engines.node`)
 
