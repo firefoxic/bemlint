@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and 
 
 ### Fixed
 
+- The package now provides type declarations correctly.
 - Type declaration files now reference each other correctly.
 
 ## [7.0.0] — 2026–11–08

@@ -19,10 +19,11 @@
 	"bin": {
 		"bemlint": "./dist/bin/cli.js"
 	},
+	"types": "./dist/lib/bemlint.d.ts",
 	"exports": {
 		".": {
-			"import": "./dist/lib/bemlint.js",
-			"types": "./dist/lib/bemlint.d.ts"
+			"types": "./dist/lib/bemlint.d.ts",
+			"import": "./dist/lib/bemlint.js"
 		},
 		"./package.json": "./package.json"
 	},
