@@ -34,8 +34,8 @@
 		"node": "^22.18 || ^24.15 || >=26.13"
 	},
 	"dependencies": {
-		"parse5": "^8.0.1",
-		"parse5-htmlparser2-tree-adapter": "^8.0.1"
+		"parse5": "^8.1.1",
+		"parse5-htmlparser2-tree-adapter": "^8.0.2"
 	},
 	"scripts": {
 		"help": "make help",
